@@ -38,6 +38,7 @@
 ### [4. 디자인 패턴 및 아키텍처 (NEW)](./03_technical_experience/07_design_pattern_application.md)
 - 스트래티지(Strategy) & 팩토리(Factory) 패턴 적용 사례
 - 클래스 폭발 문제 해결 및 금융 상품 팩토리 설계 경험
+- **[믹스인(Mixin) 개념 및 활용](./03_technical_experience/08_mixin_concept_detail.md)** (NEW)
 
 ---
 ## 💡 면접 Tip
