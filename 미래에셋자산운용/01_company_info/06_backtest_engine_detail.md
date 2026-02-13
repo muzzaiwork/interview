@@ -31,11 +31,32 @@ sequenceDiagram
 - **엔지니어링 포인트**: 
     - **Vectorization (벡터화)**: For-문(반복문)을 돌리지 않고 Pandas/NumPy의 행렬 연산을 사용하여 수만 개의 종목을 한 번에 계산합니다.
 
+**Python 예시:**
+```python
+# 1. 시가총액 하위 20% 필터링 (벡터화 연산)
+market_cap_limit = df.groupby("year")['시가총액'].transform(lambda x: x.quantile(0.2))
+small_cap_mask = df['시가총액'] <= market_cap_limit
+
+# 2. 저PBR 종목 선별 및 시그널 생성 (연도 x 종목 매트릭스)
+selected = df[small_cap_mask].sort_values('PBR').groupby('year').head(20)
+signal_df = selected.pivot(index='year', columns='Name', values='PBR').notna()
+```
+
 ### 2. 수익률 매칭 (Return Alignment)
 - **과정**: 결정된 시그널(매수 종목)에 실제 그다음 날 또는 그다음 달의 수익률 데이터를 곱합니다.
 - **핵심 주의사항 (Look-ahead Bias)**: 
     - 미래의 데이터를 미리 보고 오늘 매수하는 오류를 방지해야 합니다. 
     - "오늘 종가를 보고 오늘 종가에 산다"는 것은 불가능하므로, 시점 정렬(T시점 시그널 -> T+1시점 수익률)이 기술적으로 매우 중요합니다.
+
+**Python 예시:**
+```python
+# 일별 수익률 계산 및 시점 정렬 (T+1 수익률을 T시점으로 당김)
+returns_df = price_df.pct_change().shift(-1)
+
+# 전략 수익률 계산 (시그널과 수익률 매트릭스의 행렬 곱)
+# Pandas의 인덱스 정렬(Alignment) 기능을 통해 자동으로 종목/날짜 매칭
+portfolio_returns = (returns_df * signal_df.astype(int)).mean(axis=1)
+```
 
 ### 3. 성과 지표 산출 (Performance Metrics)
 - **과정**: 누적된 수익률 곡선을 바탕으로 전략의 우수성을 평가하는 지표를 계산합니다.
@@ -43,6 +64,20 @@ sequenceDiagram
     - **CAGR (연평균 성장률)**: 복리 개념을 적용한 연평균 수익률
     - **MDD (최대 낙폭)**: 특정 기간 동안 고점 대비 가장 많이 하락한 비율 (위험 측정의 핵심)
     - **Sharpe Ratio (샤프 지수)**: 변동성(위험) 대비 수익이 얼마나 높은지 나타내는 지표
+
+**Python 예시:**
+```python
+# 누적 수익률 계산
+cum_returns = (1 + portfolio_returns).cumprod()
+
+# CAGR 계산 (n_years: 총 투자 연수)
+cagr = (cum_returns.iloc[-1] ** (1/n_years)) - 1
+
+# MDD 계산
+peak = cum_returns.cummax()
+drawdown = (cum_returns - peak) / peak
+mdd = drawdown.min()
+```
 
 ## 🚀 엔지니어로서의 기술적 아젠다
 
