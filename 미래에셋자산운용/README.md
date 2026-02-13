@@ -30,6 +30,8 @@
 ### [3. 기술 역량 및 성과](./03_technical_experience/03_technical_experience.md)
 - 핵심 역량 4~5가지 정리
 - 주요 프로젝트 성과 (성과 중심으로)
+- **[경력 기반 직무 강점 및 기여 방안]** (NEW)
+  - [Career Alignment 상세 분석](./03_technical_experience/09_career_alignment_and_value.md)
 - 기술 스택 (Python, C++, Java, Golang, Kubernetes, AI/ML 등)
 
 ### [4. 예상 질문 및 답변](./04_expected_questions/04_expected_questions.md)
