@@ -2,6 +2,42 @@
 
 사용자께서 추측하신 내용이 정확합니다. 자산운용사의 데이터 파이프라인은 단순히 데이터를 가져오는 것을 넘어, **"투자 의사결정의 재료가 되는 데이터를 신뢰할 수 있는 상태로 만드는 모든 과정"**을 의미합니다.
 
+## 🔄 데이터 파이프라인 프로세스
+
+```mermaid
+graph LR
+    subgraph "1. 수집"
+        A[시장 데이터] --- Ingest
+        B[재무 데이터] --- Ingest
+        C[대체 데이터] --- Ingest
+    end
+
+    subgraph "2. 정제"
+        Ingest --> Clean[결측치/이상치 처리]
+        Clean --> Format[포맷 표준화]
+    end
+
+    subgraph "3. 가공"
+        Format --> Factor[팩터 계산]
+        Factor --> PIT[시점 정렬 PIT]
+    end
+
+    subgraph "4. 검증"
+        PIT --> QA[정합성/비교 검증]
+    end
+
+    subgraph "5. 저장"
+        QA --> DB[(PostgreSQL)]
+        QA --> Lake[(S3/Parquet)]
+    end
+
+    style Ingest fill:#e1f5fe
+    style Clean fill:#fff3e0
+    style Factor fill:#f1f8e9
+    style QA fill:#fce4ec
+    style DB fill:#eceff1
+```
+
 ## 🔄 데이터 파이프라인 5단계
 
 ### 1. 데이터 수집 (Sourcing & Ingestion)

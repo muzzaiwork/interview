@@ -17,6 +17,38 @@
 
 ## 🛠 해결 방안: Strategy + Factory 패턴의 결합
 
+### 클래스 다이어그램 (Class Diagram)
+
+```mermaid
+classDiagram
+    class RepaymentService {
+        +calculateSchedule(productId)
+    }
+    class RepaymentFactory {
+        +getStrategy(productId) IRepaymentStrategy
+    }
+    class IRepaymentStrategy {
+        <<interface>>
+        +calculate()
+    }
+    class EqualPrincipalStrategy {
+        +calculate()
+    }
+    class EqualTotalStrategy {
+        +calculate()
+    }
+    class BulletStrategy {
+        +calculate()
+    }
+
+    RepaymentService --> RepaymentFactory : 요청
+    RepaymentFactory ..> IRepaymentStrategy : 생성
+    IRepaymentStrategy <|.. EqualPrincipalStrategy : 구현
+    IRepaymentStrategy <|.. EqualTotalStrategy : 구현
+    IRepaymentStrategy <|.. BulletStrategy : 구현
+    RepaymentService --> IRepaymentStrategy : 실행(전략 사용)
+```
+
 ### 1. 스트래티지 패턴 (Strategy Pattern)
 - **적용**: 각 상환 방식(원리금균등, 원금균등, 만기일시 등)을 하나의 **'전략'**으로 캡슐화.
 - **효과**: 계산 로직을 인터페이스로 추상화하여, 새로운 상환 방식이 추가되어도 기존 코드를 수정하지 않고 새로운 클래스만 추가하면 됨 (**OCP - 개방 폐쇄 원칙 준수**).

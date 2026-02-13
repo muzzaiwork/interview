@@ -2,6 +2,25 @@
 
 매매 전략 백테스팅은 사용자님의 말씀대로 **"저장된 과거 데이터에 특정 수식(전략)을 적용하여 시뮬레이션 연산을 수행하는 과정"**이 맞습니다. 하지만 금융 플랫폼 엔지니어링 관점에서는 단순 연산을 넘어 '정합성'과 '성능'이 매우 중요합니다.
 
+## ⚙️ 백테스팅 실행 흐름
+
+```mermaid
+sequenceDiagram
+    participant P as 파이프라인 (Data)
+    participant E as 백테스팅 엔진 (Engine)
+    participant S as 전략 (Strategy)
+
+    Note over P: 정제된 시계열 데이터 준비
+    P->>E: 데이터 주입 (Price, Financials)
+    E->>S: 시그널 요청
+    Note over S: 팩터 계산 및 종목 선정
+    S-->>E: 매수/매도 시그널 반환
+    Note over E: 수익률 매칭 (Point-in-Time)
+    Note over E: 벡터화 행렬 연산
+    E->>E: 성과 지표 계산 (CAGR, MDD)
+    E-->>User: 최종 리포트 및 그래프 출력
+```
+
 ## ⚙️ 백테스팅 엔진의 핵심 메커니즘
 
 백테스팅 엔진은 크게 **[시그널 생성 -> 수익률 매칭 -> 성과 지표 산출]**의 3단계를 거칩니다.
