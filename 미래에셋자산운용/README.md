@@ -14,7 +14,8 @@
 - **[핵심 금융 용어 정리](./01_company_info/07_financial_terminology.md)**
 
 ### [6. 기술적 업무 및 아젠다 (Deep Dive)](./06_technical_agenda/02_job_and_architecture_overview.md)
-- **[직무의 큰 그림 및 통합 아키텍처 개요](./06_technical_agenda/02_job_and_architecture_overview.md)** (통합)
+- **[직무의 큰 그림 및 통합 아키텍처 개요](./06_technical_agenda/02_job_and_architecture_overview.md)**
+- **[쿠버네티스(Kubernetes) 상세 활용 시나리오](./06_technical_agenda/11_kubernetes_deep_dive.md)** (NEW)
 - **[데이터 파이프라인(Data Pipeline) 상세](./06_technical_agenda/05_data_pipeline_detail.md)**
 - **[백테스팅 엔진(Backtest Engine) 상세](./06_technical_agenda/06_backtest_engine_detail.md)**
 - **[데이터 저장 및 전달 전략 (Storage Strategy)](./06_technical_agenda/09_storage_strategy_detail.md)**
