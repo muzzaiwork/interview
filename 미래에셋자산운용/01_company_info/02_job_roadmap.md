@@ -6,25 +6,25 @@
 
 ```mermaid
 graph TD
-    subgraph "1. 데이터 파이프라인 (Data Foundation)"
-        A[데이터 수집/Ingestion] --> B[정제 및 검증/ETL]
-        B --> C[글로벌 통합 데이터 스토어]
+    subgraph "1. 데이터 파이프라인 (기반 구축)"
+        A[데이터 수집/수취] --> B[정제 및 검증/ETL]
+        B --> C[글로벌 통합 데이터 저장소]
         style A fill:#e1f5fe,stroke:#01579b
         style B fill:#e1f5fe,stroke:#01579b
         style C fill:#e1f5fe,stroke:#01579b
     end
 
-    subgraph "2. 퀀트/AI 플랫폼 (Strategy & Intelligence)"
-        C --> D[백테스팅 엔진/Backtesting]
+    subgraph "2. 퀀트/AI 플랫폼 (전략 및 지능)"
+        C --> D[백테스팅 엔진]
         D --> E[전략 분석 및 시뮬레이션]
-        E --> F[AI/ML 모델 트레이닝]
+        E --> F[AI/ML 모델 학습]
         style D fill:#fff3e0,stroke:#e65100
         style E fill:#fff3e0,stroke:#e65100
         style F fill:#fff3e0,stroke:#e65100
     end
 
-    subgraph "3. 글로벌 서빙 및 운영 (Delivery & Ops)"
-        F --> G[API 서빙/Model Serving]
+    subgraph "3. 글로벌 서빙 및 운영 (배포 및 운영)"
+        F --> G[API 서빙/모델 서빙]
         G --> H[글로벌 지사 인프라 배포]
         H --> I[모니터링 및 실시간 대응]
         style G fill:#f1f8e9,stroke:#33691e

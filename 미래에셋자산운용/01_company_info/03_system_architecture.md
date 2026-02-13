@@ -6,43 +6,43 @@
 
 ```mermaid
 graph TD
-    subgraph "External Data"
-        API[Market Data APIs]
-        DB_EXT[External DBs]
+    subgraph "외부 데이터"
+        API[시장 데이터 API]
+        DB_EXT[외부 DB]
     end
 
-    subgraph "Kubernetes Cluster (EKS/GKE/On-prem)"
-        subgraph "1. Data Ingestion & ETL (Python/Airflow)"
-            AF[Airflow Scheduler/Workers]
-            AF -.-> |Python Tasks| ETL[ETL Pods: Ingestion/Cleaning]
+    subgraph "쿠버네티스 클러스터 (EKS/GKE/온프레미스)"
+        subgraph "1. 데이터 수집 및 ETL (Python/Airflow)"
+            AF[Airflow 스케줄러/워커]
+            AF -.-> |Python 태스크| ETL[ETL 파드: 수집/정제]
         end
 
-        subgraph "2. Storage & Caching"
-            PG[(PostgreSQL: Metadata/Financials)]
-            RD[(Redis: Real-time Cache)]
-            S3[(Object Storage: Parquet/Artifacts)]
+        subgraph "2. 저장 및 캐싱"
+            PG[(PostgreSQL: 메타데이터/재무)]
+            RD[(Redis: 실시간 캐시)]
+            S3[(오브젝트 스토리지: Parquet/결과물)]
         end
 
-        subgraph "3. Quant/AI Compute (Python/C++)"
-            QE[Quant Engine Pods: Backtesting]
-            AT[AI Training Pods: GPU/Cuda]
-            QE --- HPA[Horizontal Pod Autoscaler]
+        subgraph "3. 퀀트/AI 연산 (Python/C++)"
+            QE[퀀트 엔진 파드: 백테스팅]
+            AT[AI 학습 파드: GPU/Cuda]
+            QE --- HPA[수평형 파드 자동 확장기]
         end
 
-        subgraph "4. Serving Layer (FastAPI/BentoML)"
-            SVC[Service Mesh: Istio/Linkerd]
-            SVC --> API_PODS[FastAPI: Strategy APIs]
-            SVC --> INF_PODS[BentoML: Model Serving]
+        subgraph "4. 서빙 레이어 (FastAPI/BentoML)"
+            SVC[서비스 메시: Istio/Linkerd]
+            SVC --> API_PODS[FastAPI: 전략 API]
+            SVC --> INF_PODS[BentoML: 모델 서빙]
         end
 
-        subgraph "5. Observability (LGTM Stack)"
+        subgraph "5. 관측성 (LGTM 스택)"
             PROM[Prometheus]
             GRAF[Grafana]
             OS[OpenSearch/Fluentd]
         end
     end
 
-    %% Flow
+    %% 흐름
     API --> AF
     ETL --> S3
     QE --> S3
