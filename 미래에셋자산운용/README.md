@@ -15,7 +15,8 @@
 - **[Python & Kubernetes 시스템 아키텍처](./01_company_info/03_system_architecture.md)**
 - **[데이터 파이프라인(Data Pipeline) 상세](./01_company_info/05_data_pipeline_detail.md)**
 - **[백테스팅 엔진(Backtest Engine) 상세](./01_company_info/06_backtest_engine_detail.md)**
-- **[데이터 저장 및 전달 전략 (Storage Strategy)](./01_company_info/09_storage_strategy_detail.md)** (NEW)
+- **[데이터 저장 및 전달 전략 (Storage Strategy)](./01_company_info/09_storage_strategy_detail.md)**
+- **[핵심 인프라 기술: AWS S3](./01_company_info/10_aws_s3_detail.md)** (NEW)
 - **[핵심 금융 용어 정리](./01_company_info/07_financial_terminology.md)**
 - **[핵심 기술 상세: Apache Airflow](./01_company_info/04_technical_stack_detail.md)**
 
