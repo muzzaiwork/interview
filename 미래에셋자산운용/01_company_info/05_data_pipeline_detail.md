@@ -46,11 +46,34 @@ graph LR
 - **재무 데이터**: 기업 공시 시스템이나 데이터 벤더로부터 PER, PBR, ROE, 배당 수익률 등 재무 지표 수집.
 - **대체 데이터**: 뉴스 기사, SNS 감성 분석, 위성 이미지 등 비정형 데이터 수집.
 
+**Python 예시:**
+```python
+import FinanceDataReader as fdr
+
+# KRX 종목 리스트 수집
+stocks = fdr.StockListing('KRX')
+
+# 특정 종목(삼성전자)의 일별 주가 수집
+df = fdr.DataReader('005930', '2023-01-01', '2023-12-31')
+```
+
 ### 2. 정제 및 전처리 (Cleaning & Preprocessing)
 수집된 데이터의 오류를 바로잡고 형식을 통일하는 단계입니다.
 - **결측치 처리**: 특정 날짜의 주가가 누락된 경우 전일 종가로 채우거나 해당 종목 제외.
 - **이상치 제거**: 데이터 입력 오류로 인한 말도 안 되는 수치(예: PBR 0.0001 등) 필터링.
 - **포맷 표준화**: 여러 소스의 날짜 형식(YYYY-MM-DD, DD/MM/YY 등)을 하나로 통일.
+
+**Python 예시:**
+```python
+# 결측치 처리: 전일 종가로 채우기 (Forward Fill)
+df['Close'] = df['Close'].fillna(method='ffill')
+
+# 이상치 처리: PBR이 0 이하인 비상식적 데이터 제거
+df = df[df['PBR'] > 0]
+
+# 날짜 포맷 통일
+df.index = pd.to_datetime(df.index)
+```
 
 ### 3. 지표 산출 및 가공 (Refinement & Calculation)
 분석에 즉시 사용 가능하도록 2차 데이터를 생성하는 단계입니다.
@@ -58,15 +81,42 @@ graph LR
 - **시점 정렬(Point-in-Time)**: 백테스팅 시 과거의 특정 시점에서 '알 수 있었던 데이터'만 사용하도록 시점을 엄격하게 맞춤 (Look-ahead bias 방지).
 - **수정 주가 계산**: 유상증자, 액면분할 등을 반영하여 연속성 있는 주가 데이터 생성.
 
+**Python 예시:**
+```python
+# 수익률 및 이동평균 산출
+df['Return'] = df['Close'].pct_change()
+df['MA20'] = df['Close'].rolling(window=20).mean()
+
+# 시점 정렬 (T시점 데이터로 T+1 수익률 매칭)
+df['Target_Return'] = df['Return'].shift(-1)
+```
+
 ### 4. 품질 검증 (Quality Assurance)
 데이터의 정확성을 최종적으로 확인하는 단계입니다. (금융 플랫폼에서 가장 중요한 단계)
 - **정합성 체크**: "오늘 종가가 어제 종가 대비 ±30% 이상 변동했는가?"와 같은 로직으로 데이터 튀는 현상 감시.
 - **비교 검증**: 소스 A와 소스 B의 데이터를 대조하여 차이가 발생하는지 확인.
 
+**Python 예시:**
+```python
+# 가격 변동성 체크 (상하한가 범위 초과 확인)
+price_jump = df[df['Return'].abs() > 0.31]
+if not price_jump.empty:
+    logger.warning(f"이상 급등락 탐지: {price_jump.index}")
+```
+
 ### 5. 저장 및 서빙 (Storage & Serving)
 가공된 데이터를 분석가(매니저)나 시스템(백테스트 엔진)이 쓰기 좋게 배치하는 단계입니다.
 - **데이터 웨어하우스/레이크**: 분석용으로 최적화된 Parquet, HDF5 파일 형식이나 PostgreSQL 같은 DB에 저장.
 - **Feature Store**: AI 모델 학습에 바로 쓰일 수 있도록 특징(Feature) 단위로 관리.
+
+**Python 예시:**
+```python
+# 분석 효율을 위해 Parquet 형식으로 저장
+df.to_parquet('market_data_refined.parquet', compression='snappy')
+
+# DB 적재
+df.to_sql('daily_stock_prices', engine, if_exists='append')
+```
 
 ---
 
