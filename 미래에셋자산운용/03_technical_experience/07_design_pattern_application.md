@@ -4,14 +4,85 @@
 
 ---
 
-## 🏗 디자인 패턴 도입의 배경 (문제 의식)
-### 1. 클래스 폭발 (Class Explosion) 및 코드 중복
-- **기존 상황**: 에잇퍼센트(코어뱅킹) 근무 당시, 80개 이상의 다양한 대출 상품 및 상환 방식(원리금균등, 만기일시 등)에 따른 상환 스케줄 계산 로직이 산재함.
-- **문제점**: 상환 방식이 추가될 때마다 유사한 코드가 복사되고, 조건문(`if-else`, `switch`)이 비대해지면서 유지보수가 불가능한 수준에 이름.
+## 🏗 디자인 패턴 도입의 배경 (Before & After)
 
-### 2. 낮은 확장성과 테스트의 어려움
-- 특정 상품의 로직을 수정하면 연관된 다른 상품의 로직에 영향을 줄 위험이 큼.
-- 계산 로직이 비즈니스 코드에 강하게 결합(Coupling)되어 있어 단위 테스트 작성이 어려움.
+### ❌ Before: 개선 전 (스파게티 코드)
+- **코드 구조**: 하나의 거대한 클래스나 함수 내에 모든 상환 로직이 `if-else` 또는 `switch` 문으로 얽혀 있음.
+- **문제 사례**:
+```python
+class RepaymentService:
+    def calculate(self, product_type, amount, rate, period):
+        if product_type == "EQUAL_PRINCIPAL":
+            # 원금균등 상환 로직 (A)
+            # ... 50 lines of code ...
+            pass
+        elif product_type == "EQUAL_TOTAL":
+            # 원리금균등 상환 로직 (B)
+            # ... 50 lines of code ...
+            pass
+        elif product_type == "BULLET":
+            # 만기일시 상환 로직 (C)
+            # ...
+            pass
+        # 새로운 상품이 추가될 때마다 이 elif는 무한히 늘어남 (80개 이상)
+        # 로직 A를 수정하다가 실수로 B나 C를 건드릴 위험이 매우 큼
+```
+- **문제점**:
+    1. **유지보수 지옥**: 코드 한 줄 수정 시 80여 개의 상품 전체를 영향도 파악해야 함.
+    2. **가독성 저하**: 수천 줄에 달하는 함수로 인해 로직 파악이 불가능함.
+    3. **테스트 불가능**: 특정 상환 방식만 떼어내어 단위 테스트(Unit Test)를 수행하기 매우 어려움.
+
+---
+
+### ✅ After: 개선 후 (Strategy + Factory 패턴 적용)
+- **코드 구조**: 각 상환 로직을 독립된 클래스(Strategy)로 분리하고, 이를 생성하는 전담 객체(Factory)를 둠.
+- **개선 사례**:
+```python
+from abc import ABC, abstractmethod
+
+# 1. Strategy Interface (추상화)
+class RepaymentStrategy(ABC):
+    @abstractmethod
+    def calculate(self, amount, rate, period):
+        pass
+
+# 2. Concrete Strategies (개별 로직 캡슐화)
+class EqualPrincipalStrategy(RepaymentStrategy):
+    def calculate(self, amount, rate, period):
+        # 원금균등 로직만 집중해서 구현
+        return "원금균등 계산 결과"
+
+class EqualTotalStrategy(RepaymentStrategy):
+    def calculate(self, amount, rate, period):
+        # 원리금균등 로직만 집중해서 구현
+        return "원리금균등 계산 결과"
+
+# 3. Factory (객체 생성 책임 분리)
+class RepaymentFactory:
+    _strategies = {
+        "EQUAL_PRINCIPAL": EqualPrincipalStrategy(),
+        "EQUAL_TOTAL": EqualTotalStrategy(),
+        # 신규 상품 추가 시 클래스 하나 만들고 여기에 등록만 하면 끝!
+    }
+
+    @classmethod
+    def get_strategy(cls, product_type):
+        return cls._strategies.get(product_type)
+
+# 4. Service (클라이언트 코드는 단순해짐)
+class RepaymentService:
+    def calculate(self, product_type, amount, rate, period):
+        strategy = RepaymentFactory.get_strategy(product_type)
+        if not strategy:
+            raise ValueError("지원하지 않는 상환 방식입니다.")
+        
+        # 구체적인 로직은 몰라도 됨 (DIP 준수)
+        return strategy.calculate(amount, rate, period)
+```
+- **개선 결과**:
+    1. **확장성(OCP)**: 기존 코드를 건드리지 않고 새로운 상환 방식 클래스만 추가하면 됨.
+    2. **응집도 향상**: 각 클래스는 하나의 상환 방식에 대해서만 책임을 가짐.
+    3. **테스트 용이성**: `EqualPrincipalStrategy`만 단독으로 테스트 코드를 짤 수 있음.
 
 ---
 
