@@ -14,6 +14,7 @@
 - **[직무 로드맵 및 기술 아젠다](./01_company_info/02_job_roadmap.md)**
 - **[Python & Kubernetes 시스템 아키텍처](./01_company_info/03_system_architecture.md)**
 - **[데이터 파이프라인(Data Pipeline) 상세](./01_company_info/05_data_pipeline_detail.md)** (NEW)
+- **[백테스팅 엔진(Backtest Engine) 상세](./01_company_info/06_backtest_engine_detail.md)** (NEW)
 - **[핵심 기술 상세: Apache Airflow](./01_company_info/04_technical_stack_detail.md)**
 
 ### [2. 자기소개 및 이력 관련](./02_self_introduction/02_self_introduction.md)
