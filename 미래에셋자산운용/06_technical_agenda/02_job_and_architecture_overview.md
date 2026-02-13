@@ -8,37 +8,44 @@
 
 본 직무의 핵심은 전 세계에서 발생하는 방대한 금융 데이터를 수집하여, AI 모델과 퀀트 전략이 심리스(Seamless)하게 구동되고 그 결과가 글로벌 지사에 안정적으로 서빙되는 **엔드투엔드(E2E) 플랫폼**을 구축하는 것입니다.
 
-### 통합 시스템 아키텍처 (Big Picture)
+### 부하에 따른 단계별 확장 시나리오 (Scalability Roadmap)
 
+데이터량과 연산 부하가 증가함에 따라 시스템이 어떻게 쿠버네티스를 통해 확장되는지 단계별로 정의합니다.
+
+#### [Step 1] 초기 단계: 단일 워커 및 수동 관리
+- **상황**: 수집 대상 종목 수가 적고 연산 복잡도가 낮음.
+- **구조**: 단일 Pod 내에서 순차적으로 데이터 수집 및 정제 수행.
+
+#### [Step 2] 확장 단계: 분산 처리 엔진 도입 (Horizontal Scaling)
+- **상황**: 글로벌 데이터(미국, 유럽 등) 추가로 수집량 급증, 백테스팅 요청 증가.
+- **구조**: **Airflow KubernetesPodOperator**를 활용하여 수집/정제 작업을 수십 개의 Pod로 분산.
+```mermaid
+graph LR
+    subgraph "K8s Cluster"
+        AF[Airflow Scheduler] --> |Task 배분| P1[Worker Pod 1: 한국]
+        AF --> |Task 배분| P2[Worker Pod 2: 미국]
+        AF --> |Task 배분| P3[Worker Pod 3: 유럽]
+        P1 & P2 & P3 --> S3[(공유 저장소: S3)]
+    end
+```
+
+#### [Step 3] 고도화 단계: 부하 기반 지능형 자동 확장 (Auto-scaling)
+- **상황**: 장 마감 직후 데이터 폭주, 수천 명의 매니저가 동시 백테스팅 수행.
+- **구조**: **HPA(Pod 확장)**와 **CA(Node 확장)**가 연동되어 인프라가 유동적으로 팽창/수축.
 ```mermaid
 graph TD
-    subgraph "[External] 데이터 소스"
-        Data_Source[시장 데이터 API / 재무 데이터 벤더 / 대체 데이터]
+    subgraph "지능형 인프라 레이어"
+        Metric[부하 감지: CPU/Memory/Queue] --> |Scale Out| HPA[HPA: Pod 개수 증설]
+        HPA --> |Resource 부족| CA[Cluster Autoscaler: 물리 노드 추가]
+        
+        subgraph "확장된 컴퓨팅 자원"
+            W1[Quant Pod]
+            W2[Quant Pod]
+            Wn[Quant Pod...]
+        end
     end
-
-    subgraph "[Layer 1] 데이터 파이프라인 (기반 구축)"
-        AF[Apache Airflow: 오케스트레이션] --> ETL[수집 및 정제 Pods]
-        ETL --> S3[(S3: Data Lake / Parquet)]
-    end
-
-    subgraph "[Layer 2] 퀀트/AI 연산 플랫폼 (핵심 엔진)"
-        S3 --> QE[Quant Engine: 분산 백테스팅]
-        S3 --> AI[AI Training: 모델 학습]
-        QE & AI --> Artifacts[(Model/Result Registry)]
-    end
-
-    subgraph "[Layer 3] 글로벌 서빙 및 인프라 (결과 제공)"
-        Artifacts --> API[FastAPI: 전략/모델 서빙]
-        API --> K8s[Kubernetes: 글로벌 가용성 확보]
-        K8s --> User((글로벌 지사 / 매니저))
-    end
-
-    %% 나의 역할 강조
-    style AF fill:#f9f,stroke:#333,stroke-width:2px
-    style ETL fill:#f9f,stroke:#333,stroke-width:2px
-    style QE fill:#f9f,stroke:#333,stroke-width:2px
-    style API fill:#f9f,stroke:#333,stroke-width:2px
-    style K8s fill:#f9f,stroke:#333,stroke-width:2px
+    
+    W1 & W2 & Wn --> |병렬 처리| Result[대규모 연산 완료]
 ```
 
 ---
