@@ -13,9 +13,8 @@
 - 주요 업무 개요 및 핵심 요구사항 매칭
 - **[핵심 금융 용어 정리](./01_company_info/07_financial_terminology.md)**
 
-### [6. 기술적 업무 및 아젠다 (Deep Dive)](./06_technical_agenda/02_job_roadmap.md)
-- **[직무 로드맵 및 기술 아젠다](./06_technical_agenda/02_job_roadmap.md)**
-- **[Python & Kubernetes 시스템 아키텍처](./06_technical_agenda/03_system_architecture.md)**
+### [6. 기술적 업무 및 아젠다 (Deep Dive)](./06_technical_agenda/02_job_and_architecture_overview.md)
+- **[직무의 큰 그림 및 통합 아키텍처 개요](./06_technical_agenda/02_job_and_architecture_overview.md)** (통합)
 - **[데이터 파이프라인(Data Pipeline) 상세](./06_technical_agenda/05_data_pipeline_detail.md)**
 - **[백테스팅 엔진(Backtest Engine) 상세](./06_technical_agenda/06_backtest_engine_detail.md)**
 - **[데이터 저장 및 전달 전략 (Storage Strategy)](./06_technical_agenda/09_storage_strategy_detail.md)**
