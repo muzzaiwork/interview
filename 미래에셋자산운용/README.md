@@ -12,7 +12,8 @@
 - 기업 분석 및 플랫폼 엔지니어링 팀의 역할
 - 주요 업무: AI 및 데이터 파이프라인, 퀀트 매매 전략 플랫폼
 - **[직무 로드맵 및 기술 아젠다](./01_company_info/02_job_roadmap.md)**
-- **[Python & Kubernetes 시스템 아키텍처](./01_company_info/03_system_architecture.md)** (NEW)
+- **[Python & Kubernetes 시스템 아키텍처](./01_company_info/03_system_architecture.md)**
+- **[핵심 기술 상세: Apache Airflow](./01_company_info/04_technical_stack_detail.md)** (NEW)
 
 ### [2. 자기소개 및 이력 관련](./02_self_introduction/02_self_introduction.md)
 - 간단한 자기소개 (1분)
