@@ -8,26 +8,26 @@
 
 ## 📌 목차
 
-### [1. 기업 및 포지션 정보](./01_company_info/README.md)
+### [1. 기업 및 포지션 정보](./01_company_info/01_company_info.md)
 - 기업 분석 및 플랫폼 엔지니어링 팀의 역할
 - 주요 업무: AI 및 데이터 파이프라인, 퀀트 매매 전략 플랫폼
 
-### [2. 자기소개 및 이력 관련](./02_self_introduction/README.md)
+### [2. 자기소개 및 이력 관련](./02_self_introduction/02_self_introduction.md)
 - 간단한 자기소개 (1분)
 - 지원 사유 및 이직 사유 (긍정적 답변 준비)
 - 성격의 장단점 및 대인관계
 
-### [3. 기술 역량 및 성과](./03_technical_experience/README.md)
+### [3. 기술 역량 및 성과](./03_technical_experience/03_technical_experience.md)
 - 핵심 역량 4~5가지 정리
 - 주요 프로젝트 성과 (성과 중심으로)
 - 기술 스택 (Python, C++, Java, Golang, Kubernetes, AI/ML 등)
 
-### [4. 예상 질문 및 답변](./04_expected_questions/README.md)
+### [4. 예상 질문 및 답변](./04_expected_questions/04_expected_questions.md)
 - 이력서 기반 질문 리스트
 - 실무 및 기술 질문
 - 일반 인성 질문
 
-### [5. 역질문 리스트](./05_questions_for_company/README.md)
+### [5. 역질문 리스트](./05_questions_for_company/05_questions_for_company.md)
 - 팀 문화, 기술 스택, 비전 등에 대한 질문
 
 ---
