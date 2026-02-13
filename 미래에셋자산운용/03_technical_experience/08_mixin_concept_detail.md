@@ -68,6 +68,61 @@ class SecretDataView(LoginRequiredMixin, ListView):
 
 ---
 
+## ⚖️ 일반 상속(ABC) vs 믹스인(Mixin) 상세 비교
+
+단순히 코드를 재사용하는 것을 넘어, **설계 의도**와 **언어적 제약**에 따른 차이가 명확합니다.
+
+### 1. 일반 상속 및 ABC (Abstract Base Class)
+- **목적**: '부모-자식' 관계(is-a)를 형성하고, 자식 클래스가 반드시 구현해야 할 **인터페이스를 강제**합니다.
+- **특징**: `abc.ABC`를 상속받아 `@abstractmethod`를 정의하며, 자식 클래스의 기본 뼈대를 제공합니다.
+
+### 2. 믹스인 (Mixin)
+- **목적**: 클래스의 본질(is-a)은 유지하면서, **부가 기능(can-do)**만 수평적으로 추가합니다.
+- **특징**: 인터페이스를 강제하기보다 이미 구현된 메서드를 제공하며, 다중 상속의 순서(MRO)를 활용합니다.
+
+---
+
+## 💻 예시 코드로 보는 차이
+
+```python
+from abc import ABC, abstractmethod
+
+# [ABC] 인터페이스를 강제하는 부모 클래스 (본질: 무엇인가?)
+class TradingEngine(ABC):
+    @abstractmethod
+    def execute_trade(self, symbol, amount):
+        """자식 클래스는 반드시 이 매매 실행 로직을 구현해야 함"""
+        pass
+
+# [Mixin] 부가 기능만 제공하는 클래스 (기능: 무엇을 할 수 있는가?)
+class SlackNotificationMixin:
+    def send_notification(self, message):
+        print(f"[Slack Alert] {message}")
+
+# [Application] 상속과 믹스인의 결합
+class QuantTradingEngine(SlackNotificationMixin, TradingEngine):
+    def execute_trade(self, symbol, amount):
+        # 1. ABC에 의한 강제 구현 로직
+        print(f"매매 실행: {symbol} {amount}주")
+        
+        # 2. Mixin에 의한 부가 기능 사용
+        self.send_notification(f"{symbol} 매매가 성공적으로 처리되었습니다.")
+
+# 실행 예시
+engine = QuantTradingEngine()
+engine.execute_trade("MIRAE_ASSET", 100)
+```
+
+### 💡 핵심 차이점 요약
+| 구분 | 추상 베이스 클래스 (ABC) | 믹스인 (Mixin) |
+| :--- | :--- | :--- |
+| **의도** | "너는 ~이어야 한다" (강제) | "너는 이것도 할 줄 안다" (확장) |
+| **추상화** | 구현되지 않은 추상 메서드 포함 가능 | 보통 바로 실행 가능한 완성된 메서드 포함 |
+| **인스턴스** | 단독 생성 불가 | 단독 생성 불가 (관례상) |
+| **계층** | 수직적 상속 (Hierarchy) | 수평적 기능 주입 (Plug-in) |
+
+---
+
 ## ⚖️ 상속(Inheritance) vs 믹스인(Mixin) vs 합성(Composition)
 
 | 구분 | 상속 (Inheritance) | 믹스인 (Mixin) | 합성 (Composition) |
