@@ -35,6 +35,10 @@
 ### [5. 역질문 리스트](./05_questions_for_company/05_questions_for_company.md)
 - 팀 문화, 기술 스택, 비전 등에 대한 질문
 
+### [4. 디자인 패턴 및 아키텍처 (NEW)](./03_technical_experience/07_design_pattern_application.md)
+- 스트래티지(Strategy) & 팩토리(Factory) 패턴 적용 사례
+- 클래스 폭발 문제 해결 및 금융 상품 팩토리 설계 경험
+
 ---
 ## 💡 면접 Tip
 - **전문성 어필**: AI 기반 글로벌 자산운용 플랫폼 개발에 적합한 본인의 강점 강조

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>스트래티지·팩토리 패턴으로 80+개의 상환 스케줄 계산법 확장성 있게 관리하 기 | earthkingman 기록 일지</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="스트래티지·팩토리 패턴으로 80+개의 상환 스케 줄 계산법 확장성 있게 관리하기" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SUMMARY 클래스 폭발 문제를 낳았던 기존의 상환 스케줄 계산 로직을, 합성 기반의 전략(Strategy) + 팩토리(Factory) 패턴으로 재설계하여, 객체지향의 장점을 살리고, 아키텍쳐의 확장성을 높인 경험을 공유합니다." />
+<meta property="og:description" content="SUMMARY 클래스 폭발 문제를 낳았던 기존 의 상환 스케줄 계산 로직을, 합성 기반의 전략(Strategy) + 팩토리(Factory) 패턴으 로 재설계하여, 객체지향의 장점을 살리고, 아키텍쳐의 확장성을 높인 경험을 공유합 니다." />
+<link rel="canonical" href="/engineering/2025/03/11/strategy-and-factory.html" />
+<meta property="og:url" content="/engineering/2025/03/11/strategy-and-factory.html" />
+<meta property="og:site_name" content="earthkingman 기록 일지" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-03-11T12:23:40+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="스트래티지·팩토리 패턴으로 80+개의 상환 스케줄 계산법 확장성 있게 관리하기" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T12:23:40+00:00","datePublished":"2025-03-11T12:23:40+00:00","description":"SUMMARY 클래스 폭발 문제를 낳았던 기존의 상환 스케줄 계산 로직을, 합성 기반의 전략(Strategy) + 팩토리(Factory) 패턴으로 재설계하여, 객체지향의 장점을 살리고, 아키 텍쳐의 확장성을 높인 경험을 공유합니다.","headline":"스트래티지·팩토리 패턴으로 80+개의 상환 스케줄 계산법 확장성 있게 관리하기","mainEntityOfPage":{"@type":"WebPage","@id":"/engineering/2025/03/11/strategy-and-factory.html"},"url":"/engineering/2025/03/11/strategy-and-factory.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="earthkingman 기록 일지" /></head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">earthkingman 기록 일지</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">스트래티지·팩토리 패 턴으로 80+개의 상환 스케줄 계산법 확장성 있게 관리하기</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-03-11T12:23:40+00:00" itemprop="datePublished">Mar 11, 2025
+      </time></p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p><strong>SUMMARY</strong></p>
+  <ul>
+    <li><strong>클래스 폭발 문제</strong>를 낳았던 기존의 상환 스케줄 계산 로직 을,</li>
+    <li><strong>합성 기반의 전략(Strategy) + 팩토리(Factory) 패턴</strong>으로  재설계하여,</li>
+    <li><strong>객체지향의 장점</strong>을 살리고, 아키텍쳐의 <strong>확장성을  높인</strong> 경험을 공유합니다.</li>
+  </ul>
+</blockquote>
+<p><br /></p>
+<h2 id="목차-">목차 <!-- omit in toc --></h2>
+<ul>
+  <li><a href="#1-배경-및-문제">1. 배경 및 문제</a>
+    <ul>
+      <li><a href="#상환-스케줄이란">상환 스케줄이란?</a></li>
+      <li><a href="#80가지가-넘는-상환-스케줄-계산법">80가지가 넘는 상환 스케줄 계산법</a></li>
+      <li><a href="#문제-정의">문제 정의</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-기존-구현-방식의-문제점">2. 기존 구현 방식의 문제점</a>
+    <ul>
+      <li><a href="#문제-1-서브-클래스-폭발class-explosion">문제 1. 서브 클래스 폭발(Class Explosion)</a></li>
+      <li><a href="#문제-2-상속-관계의-잘못된-사용">문제 2. 상속 관계의 잘못된  사용</a></li>
+      <li><a href="#문제-3-다중-상속-객체들의-상속-순서에-의존">문제 3. 다중 상 속 객체들의 상속 순서에 의존</a></li>
+      <li><a href="#문제-4-객체지향-핵심-원칙-위반-srp-ocp">문제 4. 객체지향 핵 심 원칙 위반 (SRP, OCP)</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-왜-전략팩토리-패턴인가">3. 왜 전략·팩토리 패턴인가</a>
+    <ul>
+      <li><a href="#다른-대안-검토">다른 대안 검토</a></li>
+      <li><a href="#전략strategy--팩토리factory-패턴">전략(Strategy) + 팩토리(Factory) 패턴</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-개선">4. 개선</a>
+    <ul>
+      <li><a href="#아키텍처-다이어그램">아키텍처 다이어그램</a></li>
+      <li><a href="#전략-패턴을-활용한-복잡한-계산식-분리">전략 패턴을 활용한 복잡한 계산식 분리</a>
+        <ul>
+          <li><a href="#원금-계산-전략">원금 계산 전략</a></li>
+          <li><a href="#수수료-계산-전략">수수료 계산 전략</a></li>
+          <li><a href="#전략-조합을-책임지는-컨텍스트-클래스">전략 조합을 책임지는 컨텍스트 클래스</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#5-결과-및-효과">5. 결과 및 효과</a></li>
+  <li><a href="#6-레슨런-및-과제">6. 레슨런 및 과제</a></li>
+  <li><a href="#7-마치며">7. 마치며</a>
+    <ul>
+      <li><a href="#참고-자료">참고 자료</a></li>
+    </ul>
+  </li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="1-배경-및-문제">1. 배경 및 문제</h2>
+<h3 id="상환-스케줄이란">상환 스케줄이란?</h3>
+<p>저는 대출자와 투자자를 연결하는 <strong>P2P 금융 플랫폼</strong>을 개발하고  있습니다.</p>
+<ul>
+  <li><strong>대출자</strong> 입장에서는 “언제, 얼마를 갚아야 하는지”가 가장 중 요하고,</li>
+  <li><strong>투자자</strong> 입장에서는 “언제, 얼마를 돌려받을 수 있는지”가 궁 금합니다.</li>
+</ul>
+<p>여기에서 대출자가 “언제, 얼마를 갚아야 하는지”를 나타내는 지표를 도메인 용어 로 <strong>상환 스케줄</strong>이라고 합니다.</p>
+<p>아래 단순화된 예시를 통해 상환 스케줄을 구성하는 요소들을 살펴보겠습니다.</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">회차</th>
+      <th style="text-align: center">상환예정일</th>
+      <th style="text-align: center">원금</th>
+      <th style="text-align: center">이자</th>
+      <th style="text-align: center">수수료</th>
+      <th style="text-align: center">총액</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2025-07-10</td>
+      <td style="text-align: center">1,000원</td>
+      <td style="text-align: center">100원</td>
+      <td style="text-align: center">0원</td>
+      <td style="text-align: center">1,100원</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">2025-08-10</td>
+      <td style="text-align: center">1,000원</td>
+      <td style="text-align: center">90원</td>
+      <td style="text-align: center">10원</td>
+      <td style="text-align: center">1,100원</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">2025-09-10</td>
+      <td style="text-align: center">1,000원</td>
+      <td style="text-align: center">80원</td>
+      <td style="text-align: center">15원</td>
+      <td style="text-align: center">1,095원</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">…</td>
+    </tr>
+  </tbody>
+</table>
+<p>각 회차별로 ‘언제’ 갚아야 할지는 <strong>상환예정일</strong>에서,
+‘얼마’를 갚아야 할지는 <strong>원금·이자·수수료</strong>에서 확인할 수 있습니다.</p>
+<p>물론 회차를 연체하거나 중도상환을 하는 등 특별한 경우엔 추가 고려사항이 생길 수 있지만, 기본적으로 <strong>상환예정일, 원금, 이자, 수수료</strong>가 상환 스 케줄의 핵심 요소입니다.</p>
+<p><br /></p>
+<h3 id="80가지가-넘는-상환-스케줄-계산법">80가지가 넘는 상환 스케줄 계산법</h3>
+<p>그렇다면, 각 회차별 <strong>상환예정일·원금·이자·수수료</strong>는 어떻게 결 정될까요?</p>
+<p>대출마다 계약 조건이 다르기 때문에 이 4가지 요소를 계산하는 방식도 달라집니다.</p>
+<p>예를 들어, <strong>원금 계산법</strong>만 보더라도:</p>
+<ul>
+  <li>원금균등 상환</li>
+  <li>만기일시 상환</li>
+  <li>혼합 상환</li>
+  <li>온투업 혼합 상환</li>
+  <li>(추가로 원리금균등 상환 등 각종 정책에 따라 계속 늘어날 수 있음)</li>
+</ul>
+<p>원금 계산만 놓고 봐도 4~5가지가 넘고, 상환예정일·이자·수수료 또한 각각 여러  계산 방법이 존재합니다.
+이 4개의 축을 조합하면 <strong>80가지 이상의 경우</strong>를 관리해야 하는 상황 이 벌어집니다.</p>
+<p><br /></p>
+<p><img src="/assets/images/schedule-four-axes.png" alt="schedule-four-axes" /></p>
+<p><br /></p>
+<p>그리고 신규 규제나 정책이 도입될 때마다 조합은 더 늘어납니다.</p>
+<p>결과적으로,</p>
+<ol>
+  <li>상환 스케줄을 계산하는 로직이 <strong>기하급수적으로 복잡</strong>해지고,</li>
+  <li><strong>유지보수나 확장</strong>이 점점 까다로워지는 문제가 있었습니다.</li>
+</ol>
+<p><br /></p>
+<h3 id="문제-정의">문제 정의</h3>
+<ul>
+  <li><strong>목표</strong>: 상환 스케줄 계산 로직에서 <strong>원금, 이자, 수수 료, 상환예정일</strong> 4개 요소를 자유롭게 <strong>조합</strong>할 수 있어야 한다.</li>
+  <li><strong>요구사항</strong>: 새 정책(계산법)이 추가·변경되어도 <strong>기존 코드에 최소한의 영향</strong>으로 손쉽게 확장할 수 있어야 한다.</li>
+  <li><strong>문제 상황</strong>: 80가지 이상의 조합을 관리하면서 <strong>클래스 폭발(Class Explosion)</strong> 문제가 발생했고, 상속 구조가 잘못 설계되어 <strong>객체지향의 장점을 잃어버렸다</strong>.</li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="2-기존-구현-방식의-문제점">2. 기존 구현 방식의 문제점</h2>
+<p>기존 방식은 다음과 같이 구현되어 있었습니다.</p>
+<ol>
+  <li>상환 스케줄 생성기를 정의한다.</li>
+  <li>원금·이자·수수료 계산 로직을 각각 <strong>믹스인(Mixin)</strong>으로 분리 한다.</li>
+  <li>(1)과 (2)를 <strong>다중 상속</strong>받아, 실제 상환 스케줄의 계산 조합마다 새 클래스를 만든다.</li>
+</ol>
+<p>이를 코드로 간단히 살펴보겠습니다.</p>
+<p><br /></p>
+<p><strong>(1) 상환 스케줄 생성기</strong></p>
+<p>상환 스케줄을 생성하는 데 필요한 핵심 로직을 담당하는 클래스입니다.</p>
+<p>여기서는 각 회차별 원금·이자·수수료를 구하는 추상 메서드를 두고, 실제 구현은 서브 클래스에 위임했습니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">상환스케줄_생성기</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># ... (상환스케줄 생성에 필요한 값들 초기화)
+</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... (실제 상환스케줄 생성 로직)
+</span>
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">principals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+    <span class="k">def</span> <span class="nf">interests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+    <span class="k">def</span> <span class="nf">fees</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+</code></pre></div></div>
+<p><br /></p>
+<p><strong>(2) 원금·이자·수수료 계산 믹스인</strong></p>
+<p>각 요소(원금·이자·수수료)에 대한 다양한 계산식을 각각의 <strong>믹스인(Mixin)</strong>으로 분리했습니다.</p>
+<p>예컨대 원금 계산에 대한 베이스 믹스인을 만들고, 이를 상속받아 여러 방식의 원 금 계산 로직을 구현하는 식입니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">base_원금계산_ 믹스인</span><span class="p">:</span>
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="o">@</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">principals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">만기일시_원금계산_믹스인</span><span class="p">(</span><span class="n">base_원금계산_믹스인</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">principals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... (원금 계산 로직)
+</span>        <span class="k">return</span> <span class="n">principals</span>
+<span class="k">class</span> <span class="nc">원금균등_원금계산_믹스인</span><span class="p">(</span><span class="n">base_원금계산_믹스인</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">principals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... (원금 계산 로직)
+</span>        <span class="k">return</span> <span class="n">principals</span>
+</code></pre></div></div>
+<p><br /></p>
+<p><strong>(3) 기존 상환 스케줄 계산기</strong></p>
+<p>상환 스케줄 생성기 + 각 요소별 믹스인들을 조합하여 상환 스케줄 계산법을 구현 합니다.</p>
+<p>아래 코드처럼, 각각의 계산 조합마다 클래스를 따로 만들어 두는 구조입니다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">M00</span><span class="p">(</span>
+    <span class="n">만기일시_원금계산_믹스인</span><span class="p">,</span>
+    <span class="n">일별_이자계산_믹스인</span><span class="p">,</span>
+    <span class="n">수수료_미수취_믹스인</span><span class="p">,</span>
+    <span class="n">상환스케줄_생성기</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">E00</span><span class="p">(</span>
+    <span class="n">원금균등_원금계산_믹스인</span><span class="p">,</span>
+    <span class="n">일별_이자계산_믹스인</span><span class="p">,</span>
+    <span class="n">수수료_미수취_믹스인</span><span class="p">,</span>
+    <span class="n">상환스케줄_생성기</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">X01</span><span class="p">(</span>
+    <span class="n">혼합상환_원금계산_믹스인</span><span class="p">,</span>
+    <span class="n">일별_이자계산_믹스인</span><span class="p">,</span>
+    <span class="n">일별_수수료_믹스인</span><span class="p">,</span>
+    <span class="n">상환스케줄_생성기</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">pass</span>
+<span class="c1"># ... (M01, E01, X02, X03 등
+# 상환 스케줄 계산법 조합마다 추가로 생성)
+</span></code></pre></div></div>
+<p><br /></p>
+<h3 id="문제-1-서브-클래스-폭발class-explosion">문제 1. 서브 클래스 폭발(Class Explosion)</h3>
+<ul>
+  <li><strong>원금·이자·수수료</strong> 계산법의 조합마다 클래스를 하나씩 만들다 보니, <code class="language-plaintext highlighter-rouge">M00</code>, <code class="language-plaintext highlighter-rouge">M01</code>, <code class="language-plaintext highlighter-rouge">M02</code>, <code class="language-plaintext highlighter-rouge">X00</code>, <code class="language-plaintext highlighter-rouge">X01</code>, <code class="language-plaintext highlighter-rouge">X02</code> … 등이 <strong> 기하급수적으로 증가</strong>했습니다.</li>
+  <li>새로운 정책(믹스인)이 추가될 때마다 이를 상속받는 조합 클래스를 <strong>모두</strong> 만들어야 해 확장성이 떨어집니다.</li>
+</ul>
+<p><br /></p>
+<h3 id="문제-2-상속-관계의-잘못된-사용">문제 2. 상속 관계의 잘못된 사용</h3>
+<p>예컨대 <code class="language-plaintext highlighter-rouge">X01</code>이라는 상환 스케줄 계산기 클래스는</p>
+<ul>
+  <li>혼합상환_원금계산_믹스인</li>
+  <li>일별_이자계산_믹스인</li>
+  <li>일별_수수료_믹스인</li>
+  <li>상환스케줄_생성기</li>
+</ul>
+<p>이 네 가지를 모두 상속받습니다. 하지만 객체지향에서 상속은 보통 “A는 B의 종류다(A is a B)”라는 관계에 사용해야 합니다.</p>
+<ul>
+  <li>“<code class="language-plaintext highlighter-rouge">X01</code>은 원금 계산법의 종류이다”라는 말 자체가 잘못되었고,</li>
+  <li>“<code class="language-plaintext highlighter-rouge">X01</code>은 상환 스케줄 생성기의 종류이다” 역시 잘못되었습니다.</li>
+</ul>
+<p>실제로는 “상환스케줄 계산기 <strong>안에(has-a)</strong> 원금·이자·수수료 계 산 로직이 들어있는 것”이 정확한 설계입니다.</p>
+<p>그런데 현재 구조에선 “상환스케줄 <strong>계산기가(is-a)</strong> 원금·이자·수수료 믹스인의 종류다” 식으로 뒤바뀌어, <strong>너무 많은 책임</strong>이 한 클래스에 뒤섞여 있습니다.</p>
+<p>이로 인해,</p>
+<ul>
+  <li>상환 스케줄 생성기에서 필요한 원금·이자·수수료 계산 로직이 <strong>어디에 서 구현되는지 파악하기 어려워지고</strong>,</li>
+  <li>믹스인들 간 변수를 주고받는 부분도 <strong>명시적으로 드러나지 않아</strong> 가독성이 급격히 떨어집니다.</li>
+</ul>
+<p><br /></p>
+<h3 id="문제-3-다중-상속-객체들의-상속-순서에-의존">문제 3. 다중 상속 객체들의  상속 순서에 의존</h3>
+<ul>
+  <li>파이썬의 다중 상속(MRO: Method Resolution Order) 특성상, <strong>상속 순서가 조금만 바뀌어도</strong> 예상치 못한 동작이나 네이밍 충돌이 생길 수 있습니다.
+    <ul>
+      <li>예를 들어, 현재 구조에서 상환스케줄 생성기가 가장 먼저 상속된다면, <code class="language-plaintext highlighter-rouge">NotImplementedError</code>가 발 생할 수 있습니다.</li>
+    </ul>
+  </li>
+  <li>이렇게 상속 순서에 지나치게 민감한 구조이다 보니, 새로운 정책이 추가되어  조합 클래스들을 만드는 과정에서 혼동이 생길 여지가 큽니다.</li>
+</ul>
+<p><br /></p>
+<h3 id="문제-4-객체지향-핵심-원칙-위반-srp-ocp">문제 4. 객체지향 핵심 원칙 위반 (SRP, OCP)</h3>
+<ul>
+  <li><strong>단일 책임 원칙(SRP)</strong>: 한 클래스가 하나의 책임만 가져야 하 는데, 현 구조에서는 다중 상속으로 인해 <code class="language-plaintext highlighter-rouge">X01</code> 같은 하나의 클래스가 ‘상환 스케줄 생성’, ‘원금 계산’, ‘이자 계산’, ‘수수료 계산’을 모두 담당합니다.</li>
+  <li><strong>개방-폐쇄 원칙(OCP)</strong>: 새로운 정책(계산법)이 추가되면, 해당 믹스인을 추가하고 이를 상속받는 <strong>모든</strong> 조합 클래스를 다시 만들어야 합니다. 이는 기존 코드를 건드리지 않고 확장하기가 어렵다는 뜻입니다.</li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="3-왜-전략팩토리-패턴인가">3. 왜 전략·팩토리 패턴인가</h2>
+<h3 id="다른-대안-검토">다른 대안 검토</h3>
+<ol>
+  <li><strong>Template Method</strong>: 상위 클래스에 공통 로직, 하위에서 부분  오버라이드
+    <ul>
+      <li>4개 축(원금·이자·수수료·날짜)을 각기 독립적으로 제어하기 어려움</li>
+    </ul>
+  </li>
+  <li><strong>Rule Engine</strong>: Drools 등
+    <ul>
+      <li>비즈니스 규칙이 너무 복잡하거나 텍스트로 자주 변경되는 경우에는 유용하지만, 우리 상황은 <strong>계산식 중심</strong>이라 적용 범위가 과함</li>
+    </ul>
+  </li>
+  <li><strong>단순 if-else</strong>: <code class="language-plaintext highlighter-rouge">if (원금 == 혼합) and (이자 == 일별) ...</code>
+    <ul>
+      <li>유지보수성과 확장성에 문제</li>
+    </ul>
+  </li>
+</ol>
+<h3 id="전략strategy--팩토리factory-패턴">전략(Strategy) + 팩토리(Factory) 패턴</h3>
+<ul>
+  <li><strong>Strategy</strong>: 각 축(원금·이자·수수료·날짜)을 <strong>독립 객 체</strong>로 분리 → 새 정책 추가 시 해당 전략 클래스만 새로 구현하면 됨</li>
+  <li><strong>Factory</strong>: 런타임 조건에 따라 알맞은 전략 객체를 생성 → 더 이상 <code class="language-plaintext highlighter-rouge">X00</code>, <code class="language-plaintext highlighter-rouge">X01</code>, <code class="language-plaintext highlighter-rouge">X02</code> 등 조합 클래스를 만드는 필요가 없음</li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="4-개선">4. 개선</h2>
+<h3 id="아키텍처-다이어그램">아키텍처 다이어그램</h3>
+<p>아래는 <strong>전략(Strategy) &amp; 팩토리(Factory) 패턴 적용 후</strong> 상 환 스케줄 계산 프로세스를 나타낸 다이어그램입니다.</p>
+<p><img src="/assets/images/strategy-high-res.png" alt="to-be-architecture" /></p>
+<blockquote>
+  <p>각 축(Principal, Interest, Fee, ScheduledDates)을 독립된 <strong>전략 클래 스</strong>로 분리하고,
+<strong>ScheduleBuilder</strong>가 이들을 <strong>조합</strong>해 최종 상환 스케줄을 만든다.</p>
+</blockquote>
+<h3 id="전략-패턴을-활용한-복잡한-계산식-분리">전략 패턴을 활용한 복잡한 계산식 분리</h3>
+<h4 id="원금-계산-전략">원금 계산 전략</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PrincipalStrategy</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="s">"""원금 계산 전략 추상 인터페이스"""</span>
+    <span class="o">@</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_principals</span><span class="p">(...):</span>
+        <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">온투업_혼합상환_원금_계산_전략</span><span class="p">(</span><span class="n">PrincipalStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_principals</span><span class="p">(...):</span>
+        <span class="c1"># (온투업 혼합상환방식에 맞는 원금 계산법 구현)
+</span>        <span class="k">return</span> <span class="n">principals</span>
+</code></pre></div></div>
+<h4 id="수수료-계산-전략">수수료 계산 전략</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FeeStrategy</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="s">"""수수료 계산 전략 추상 인터페이스"""</span>
+    <span class="o">@</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_fees</span><span class="p">(...):</span>
+        <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">분납축소_수수료_계산_전략</span><span class="p">(</span><span class="n">FeeStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_fees</span><span class="p">(...):</span>
+        <span class="c1"># (분납축소에 맞는 수수료 계산법 구현)
+</span>        <span class="k">return</span> <span class="n">fees</span>
+</code></pre></div></div>
+<h4 id="전략-조합을-책임지는-컨텍스트-클래스">전략 조합을 책임지는 컨텍스트 클래스</h4>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ScheduleBuilder</span><span class="p">:</span>
+    <span class="s">"""
+    - 대출 조건에 따라 원금·이자·수수료·상환일자 전략을 고르고
+    - 각 전략을 조합해 최종 상환 스케줄을 계산하여 반환
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">대출_조건</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">대출_조건</span> <span class="o">=</span> <span class="n">대출_조건</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoanSchedule</span><span class="p">:</span>
+        <span class="c1"># 1) 전략 선택
+</span>        <span class="n">principal_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_pick_principal_strategy</span><span class="p">()</span>
+        <span class="n">interest_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_pick_interest_strategy</span><span class="p">()</span>
+        <span class="n">fee_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_pick_fee_strategy</span><span class="p">()</span>
+        <span class="n">dates_strategy</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_pick_scheduled_dates_strategy</span><span class="p">()</span>
+        <span class="c1"># 2) 상환예정일(회차 일자) 계산
+</span>        <span class="n">scheduled_dates</span> <span class="o">=</span> <span class="n">dates_strategy</span><span class="p">.</span><span class="n">get_scheduled_dates</span><span class="p">(...)</span>
+        <span class="c1"># 3) 원금, 이자, 수수료 계산
+</span>        <span class="n">principals</span> <span class="o">=</span> <span class="n">principal_strategy</span><span class="p">.</span><span class="n">get_principals</span><span class="p">(...)</span>
+        <span class="n">loan_balances</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_compute_loan_balances</span><span class="p">(</span><span class="n">principals</span><span class="p">)</span>
+        <span class="n">interests</span> <span class="o">=</span> <span class="n">interest_strategy</span><span class="p">.</span><span class="n">get_interests</span><span class="p">(...)</span>
+        <span class="n">fees</span> <span class="o">=</span> <span class="n">fee_strategy</span><span class="p">.</span><span class="n">get_fees</span><span class="p">(...)</span>
+        <span class="c1"># 4) Installment 객체 조립
+</span>        <span class="n">installments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># ... (Installment 객체 생성 및 유효성 검사)
+</span>        <span class="k">return</span> <span class="n">schedule</span>
+    <span class="k">def</span> <span class="nf">_pick_principal_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrincipalStrategy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">loan_terms</span><span class="p">.</span><span class="n">repayment_method</span> <span class="o">==</span> <span class="n">RepaymentMethod</span><span class="p">.</span><span class="n">MIXED</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">RebalancedMixedPrincipal</span><span class="p">()</span>
+        <span class="c1"># ... (기타 원금 방식)
+</span>        <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"알 수 없는 원금 계산 방식"</span><span class="p">)</span>
+    <span class="c1"># ... (이자, 수수료, 날짜 전략도 유사)
+</span></code></pre></div></div>
+<ul>
+  <li><strong>새 정책</strong>(예: 다른 형태의 수수료)이 추가돼도, <code class="language-plaintext highlighter-rouge">FeeStrategy</code> 하위 클래스를 하나만 생성하면 됨.</li>
+  <li>기존처럼 <code class="language-plaintext highlighter-rouge">X00, X01, X02 …</code> 조합 클래스를 무한정 만들지 않아도 됨.</li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="5-결과-및-효과">5. 결과 및 효과</h2>
+<ol>
+  <li>
+    <p><strong>클래스 폭발 문제 해소</strong></p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">X00, X01, X02...</code> 식으로 기하급수적으로 늘어나는 조합 클래스가 <strong>사라짐</strong></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>OCP 준수</strong></p>
+    <ul>
+      <li>새로운 원금·이자·수수료 정책이 생겨도, 기존 코드를 크게 수정할 필요 없이 “전략 클래스 + 빌더 분기”만 추가</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>도메인 로직 명확화</strong></p>
+    <ul>
+      <li>“혼합 상환”은 <code class="language-plaintext highlighter-rouge">MixedPrincipal</code>, “분납 기간 축소”는 <code class="language-plaintext highlighter-rouge">ShortenedPeriodFee</code>처럼 <strong>도메인 용어</strong>와 코드가 1:1 로 대응</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>테스트 범위 분리</strong></p>
+    <ul>
+      <li>전략마다 유닛 테스트, 빌더(전체 조합)에는 통합 테스트를 적용해 <strong>품질 관리</strong>가 쉬워짐</li>
+    </ul>
+  </li>
+</ol>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="6-레슨런-및-과제">6. 레슨런 및 과제</h2>
+<ol>
+  <li><strong>디자인 패턴은 문제 해결이 우선</strong>
+    <ul>
+      <li>“전략·팩토리 패턴을 쓰자!”가 아니라, <strong>OCP를 지키고 클래스 폭발 을 막으려는</strong> 실무적 이유로 디자인 패턴을 활용</li>
+    </ul>
+  </li>
+  <li><strong>금융 도메인 특성</strong>
+    <ul>
+      <li>정책(규정) 변경이 잦은 금융 서비스에선, Strategy 패턴이 특히 유용함을 체감</li>
+    </ul>
+  </li>
+  <li><strong>Rule Engine 가능성</strong>
+    <ul>
+      <li>규칙이 훨씬 복잡해지면 Rule Engine으로 확장할 수도 있음. 현 시점에선 Strategy만으로 충분</li>
+    </ul>
+  </li>
+  <li><strong>추가 정책</strong>
+    <ul>
+      <li>중도상환, 온투업 재조정, 복리 이자 같은 새 정책이 생겨도, 동일한 구조 로 확장 가능</li>
+    </ul>
+  </li>
+</ol>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h2 id="7-마치며">7. 마치며</h2>
+<p>이번 글에서는 <strong>전략(Strategy)</strong>과 <strong>팩토리(Factory)</strong> 패턴을 활용해 상환 스케줄 계산 로직을 리팩터링한 과정을 소개했습니다.</p>
+<ul>
+  <li><strong>기존</strong>: “Mixin 다중 상속 → <code class="language-plaintext highlighter-rouge">X00</code>, <code class="language-plaintext highlighter-rouge">X01</code>, <code class="language-plaintext highlighter-rouge">X02</code>…” 클래스 폭발</li>
+  <li><strong>개선 후</strong>: “축별 전략 + 빌더 &amp; 팩토리” 구조로,
+    <ul>
+      <li><strong>OCP</strong>와 <strong>확장성</strong>을 만족하고,</li>
+      <li>새 정책이 추가될 때도 부담이 크게 줄었습니다.</li>
+    </ul>
+  </li>
+</ul>
+<p>실제 금융 도메인처럼 <strong>변동이 잦고 복잡한 계산</strong>이 필요한 곳에서, Strategy &amp; Factory 패턴은 특히 효과적이라는 점을 다시금 느꼈습니다.</p>
+<p><br /></p>
+<hr />
+<h3 id="참고-자료">참고 자료</h3>
+<ul>
+  <li><strong>Strategy Pattern</strong>: <a href="https://refactoring.guru/design-patterns/strategy">refactoring.guru/design-patterns/strategy</a></li>
+  <li><strong>Factory Pattern</strong>: <a href="https://refactoring.guru/design-patterns/factory-method">refactoring.guru/design-patterns/factory-method</a></li>
+  <li><strong>Open–Closed Principle (OCP)</strong>: <a href="https://en.wikipedia.org/wiki/Open–closed_principle">SOLID 원칙 - Wikipedia</a></li>
+</ul>
+  </div><a class="u-url" href="/engineering/2025/03/11/strategy-and-factory.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+  <div class="wrapper">
+    <h2 class="footer-heading">earthkingman 기록 일지</h2>
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">earthkingman 기록 일지</li><li><a class="u-email" href="mailto:qkrskdjf@naver.com">qkrskdjf@naver.com</a></li></ul>
+      </div>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/earthkingman"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">earthkingman</span></a></li><li><a href="https://www.twitter.com/"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username"></span></a></li></ul>
+</div>
+      <div class="footer-col footer-col-3">
+        <p>Hello. I am a core-banking developer of P2P financial services. This blog is for my development records.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
