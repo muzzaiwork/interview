@@ -6,7 +6,7 @@
 
 ## 1. Apache Airflow란?
 
-Apache Airflow는 복잡한 **워크플로우(Workflow)**를 작성, 예약 및 모니터링하기 위한 오픈소스 플랫폼입니다. 파이썬(Python) 코드로 워크플로우를 정의하며, 데이터 파이프라인의 **'오케스트레이터(Orchestrator)'** 역할을 합니다.
+Apache Airflow는 복잡한 **워크플로우(Workflow)**를 작성, 예약 및 모니터링하기 위한 오픈소스 플랫폼입니다. 파이썬(Python) 코드로 워크플로우를 정의하며, 데이터 파이프라인의 **오케스트레이터(Orchestrator)** 역할을 합니다.
 
 ### 💡 핵심 개념: DAG (Directed Acyclic Graph)
 - **DAG(유향 비순환 그래프)**: Airflow에서 워크플로우를 정의하는 방식입니다.
