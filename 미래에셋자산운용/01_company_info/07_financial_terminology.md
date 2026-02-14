@@ -72,9 +72,10 @@ graph LR
 - **예시**: 어떤 붕어빵 가게가 1년에 1,000만 원을 버는데, 이 가게의 권리금이 5,000만 원이라면 PER은 5배입니다. 즉, 투자 원금을 회수하는 데 5년이 걸린다는 뜻이기도 합니다.
 
 ```mermaid
-gannt
+gantt
     title 붕어빵 가게 투자금 회수 (PER 5배)
     dateFormat  YYYY
+    axisFormat  %Y년
     section 수익 회수
     1년차 (1,000만) :active, p1, 2024, 1y
     2년차 (1,000만) :active, p2, after p1, 1y
