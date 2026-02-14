@@ -231,6 +231,31 @@ graph TD
     style Down fill:#f1f8e9
 ```
 
+### 16. 금리 (Interest Rate)
+- **정의**: 돈의 값어치, 즉 **"돈을 빌린 대가로 지불하는 이자율"**입니다.
+- **예시**: 시장에 돈이 흔해지면 금리가 내려가고, 돈이 귀해지면 금리가 올라갑니다.
+- **핵심 관계 (금리 vs 자산가격)**: 금리가 오르면 상대적으로 주식이나 채권의 매력이 떨어져 가격이 하락하는 경향이 있습니다.
+
+```mermaid
+graph TD
+    subgraph "금리 상승 (돈이 귀해짐)"
+        IR_Up[금리 상승] -->|비용 증가| Company[기업의 대출 이자 부담 증가]
+        IR_Up -->|매력 상승| Bank[은행 예금으로 돈이 몰림]
+        Company & Bank --> StockDown[주가 하락 압력]
+    end
+    
+    subgraph "금리 하락 (돈이 흔해짐)"
+        IR_Down[금리 하락] -->|비용 감소| Company2[기업의 투자/소비 활성화]
+        IR_Down -->|매력 하락| Bank2[은행보다 주식/코인 등으로 돈이 몰림]
+        Company2 & Bank2 --> StockUp[주가 상승 압력]
+    end
+    
+    style StockDown fill:#ffebee,stroke:#b71c1c
+    style StockUp fill:#e1f5fe,stroke:#01579b
+```
+
+- **할인율 (Discount Rate)**: 엔지니어링 관점에서 금리는 **"미래의 가치를 현재로 계산할 때 나누는 값"**입니다. 금리가 높을수록 미래에 벌어들일 100억 원의 현재 가치는 작아집니다. (성장주에 불리한 이유)
+
 ---
 
 ## 💡 면접용 핵심 요약
