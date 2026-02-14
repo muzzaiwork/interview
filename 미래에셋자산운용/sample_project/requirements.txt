@@ -1,0 +1,7 @@
+ipython
+pandas
+numpy
+seaborn
+matplotlib
+finance-datareader
+

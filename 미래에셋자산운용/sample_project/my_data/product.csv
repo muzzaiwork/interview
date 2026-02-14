@@ -1,0 +1,475 @@
+,id,brand,title,price
+0,384,apple,"apple iphone 6 (space grey, 32 gb)",23999.00
+1,385,apple,"apple iphone 6s (space grey, 32 gb)",33999.00
+2,386,apple,"apple iphone 6s (rose gold, 32 gb)",33999.00
+3,387,apple,"apple iphone se (space grey, 32 gb)",17999.00
+4,388,apple,"apple iphone 6 (gold, 32 gb)",24299.00
+5,389,apple,"apple iphone 6s (gold, 32 gb)",33999.00
+6,390,apple,"apple iphone se (rose gold, 32 gb)",17999.00
+7,391,apple,"apple iphone 7 (rose gold, 32 gb)",43999.00
+8,392,apple,"apple iphone se (silver, 32 gb)",17999.00
+9,393,apple,"apple iphone se (gold, 32 gb)",17999.00
+10,394,apple,"apple iphone 6s plus (gold, 32 gb)",37999.00
+11,395,apple,"apple iphone 6s plus (space grey, 32 gb)",37999.00
+12,396,apple,"apple iphone x (space gray, 64 gb)",81999.00
+13,397,apple,"apple iphone 6s (silver, 32 gb)",34999.00
+14,398,apple,"apple iphone x (space gray, 256 gb)",97999.00
+15,399,apple,"apple iphone 8 plus (product)red (red, 256 gb)",85999.00
+16,400,apple,"apple iphone se (rose gold, 128 gb)",28490.00
+17,401,apple,"apple iphone 7 plus (jet black, 128 gb)",65999.00
+18,402,apple,"apple iphone 8 (space grey, 256 gb)",69999.00
+19,403,apple,"apple iphone 7 (black, 128 gb)",53999.00
+20,404,apple,"apple iphone 7 (jet black, 128 gb)",56999.00
+21,405,apple,"apple iphone 8 plus (space grey, 256 gb)",83999.00
+22,406,apple,"apple iphone 7 plus (black, 128 gb)",65999.00
+23,407,apple,"apple iphone 7 (jet black, 32 gb)",45999.00
+24,408,apple,"apple iphone 6 (silver, 64 gb)",44999.00
+25,409,apple,"apple iphone 6 (gold, 64 gb)",53074.00
+26,410,apple,"apple iphone 4 (white, 8 gb)",22900.00
+27,411,apple,"apple iphone 7 (rose gold, 256 gb)",57875.00
+28,412,apple,"apple iphone se (space grey, 16 gb)",20999.00
+29,413,apple,"apple iphone 7 (black, 256 gb)",61999.00
+30,414,apple,"apple iphone se (rose gold, 64 gb)",32999.00
+31,415,apple,"apple iphone 7 (gold, 256 gb)",57788.00
+32,416,apple,"apple iphone se (gold, 64 gb)",43999.00
+33,417,apple,"apple iphone 6s (space grey, 16 gb)",62000.00
+34,418,apple,"apple iphone 6s (rose gold, 64 gb)",49999.00
+35,419,apple,"apple iphone 6s (rose gold, 16 gb)",62000.00
+36,420,apple,"apple iphone 6s (silver, 128 gb)",54940.00
+37,421,apple,"apple iphone 6s plus (gold, 16 gb)",36990.00
+38,422,apple,"apple iphone 5s (space grey, 16 gb)",16999.00
+39,423,apple,"apple iphone 7 plus (rose gold, 256 gb)",75990.00
+40,424,apple,"apple iphone 4s (white, 8 gb)",10499.00
+41,425,apple,"apple iphone 4s (black, 8 gb)",10200.00
+42,426,apple,"apple iphone 5 (white, 16 gb)",15999.00
+43,427,apple,"apple iphone 5s (gold, 16 gb)",19934.00
+44,428,apple,"apple iphone 4s (white, 8 gb)",10400.00
+45,429,apple,"apple iphone 8 plus (space grey, 64 gb)",69999.00
+46,430,apple,"apple iphone 8 (silver, 64 gb)",57999.00
+47,431,apple,"apple iphone 8 (gold, 64 gb)",57999.00
+48,432,apple,"apple iphone se (rose gold, 16 gb)",20999.00
+49,433,apple,"apple iphone 6 (gold, 16 gb)",36499.00
+50,434,apple,"apple iphone 6 (silver, 16 gb)",36990.00
+51,435,apple,"apple iphone se (gold, 16 gb)",20999.00
+52,436,apple,"apple iphone 6 (space grey, 16 gb)",24999.00
+53,437,apple,"apple iphone 6 plus (space grey, 16 gb)",39999.00
+54,438,apple,"apple iphone 6 plus (space grey, 64 gb)",48999.00
+55,439,apple,"apple iphone se (space grey, 64 gb)",28990.00
+56,440,apple,"apple iphone 6 plus (space grey, 128 gb)",56999.00
+57,441,apple,"apple iphone 6 plus (silver, 16 gb)",40849.00
+58,442,apple,"apple iphone 6 plus (gold, 128 gb)",59999.00
+59,443,apple,"apple iphone x (silver, 256 gb)",97999.00
+60,444,apple,"apple iphone se (gold, 128 gb)",28490.00
+61,445,apple,"apple iphone 6s (silver, 64 gb)",49999.00
+62,446,apple,"apple iphone 6s plus (gold, 64 gb)",59999.00
+63,447,apple,"apple iphone 6s plus (space grey, 128 gb)",49990.00
+64,448,apple,"apple iphone 7 plus (jet black, 256 gb)",70890.00
+65,449,apple,"apple iphone 6s (rose gold, 128 gb)",43490.00
+66,450,apple,"apple iphone 6s (silver, 16 gb)",41999.00
+67,451,apple,"apple iphone 7 plus (gold, 32 gb)",56999.00
+68,452,apple,"apple iphone 7 plus (silver, 256 gb)",70890.00
+69,453,apple,"apple iphone 7 plus (red, 128 gb)",65999.00
+70,454,apple,"apple iphone se (silver, 64 gb)",48299.00
+71,455,apple,"apple iphone 6 (space grey, 64 gb)",44999.00
+72,456,apple,"apple iphone 6s (gold, 16 gb)",39999.00
+73,457,apple,"apple iphone 4s (black, 16 gb)",28953.00
+74,458,apple,"apple iphone 6 (gold, 128 gb)",49999.00
+75,459,apple,"apple iphone 6 plus (silver, 128 gb)",48999.00
+76,460,apple,"apple iphone 6 plus (silver, 64 gb)",48999.00
+77,461,apple,"apple iphone 6 plus (gold, 64 gb)",63665.00
+78,462,apple,"apple iphone 6s (gold, 64 gb)",49999.00
+79,463,apple,"apple iphone 6s plus (gold, 128 gb)",45490.00
+80,464,apple,"apple iphone 6s plus (rose gold, 64 gb)",59999.00
+81,465,apple,"apple iphone 7 plus (black, 256 gb)",70980.00
+82,466,apple,"apple iphone 5c (blue, 8 gb)",14999.00
+83,467,apple,"apple iphone 5c (white, 8 gb)",14999.00
+84,468,apple,"apple iphone 5c (white, 32 gb)",49687.00
+85,469,apple,"apple iphone 5c (yellow, 8 gb)",27106.00
+86,470,apple,"apple iphone 5 (black, 16 gb)",15299.00
+87,471,apple,"apple iphone 4s (black, 16 gb)",13900.00
+88,472,apple,"apple iphone 5c (yellow, 32 gb)",25999.00
+89,473,apple,"apple iphone 5c (pink, 16 gb)",30490.00
+90,474,apple,"apple iphone 5c (yellow, 16 gb)",29990.00
+91,139,mi,"redmi note 5 (gold, 32 gb)",9999.00
+92,140,mi,"redmi note 5 (black, 64 gb)",11999.00
+93,141,mi,"redmi note 5 (gold, 64 gb)",11999.00
+94,142,mi,"redmi note 5 (black, 32 gb)",9999.00
+95,143,mi,"redmi note 5 pro (blue, 64 gb)",14999.00
+96,144,mi,"redmi note 5 pro (black, 64 gb)",14999.00
+97,145,mi,"redmi note 4 (dark grey, 64 gb)",10999.00
+98,146,mi,"redmi 5a (gold, 32 gb)",6999.00
+99,147,mi,"redmi 5a (gold, 16 gb)",5999.00
+100,148,mi,"redmi 5a (grey, 32 gb)",6999.00
+101,149,mi,"redmi 5a (grey, 16 gb)",5999.00
+102,150,mi,"redmi note 5 pro (gold, 64 gb)",14999.00
+103,151,mi,"mi mix 2 (black, 128 gb)",27999.00
+104,152,mi,"mi max 2 (black, 64 gb)",14999.00
+105,153,mi,"redmi y1 (gold, 32 gb)",9980.00
+106,154,mi,"redmi note 5 pro (black, 64 gb)",16999.00
+107,155,mi,"redmi y1 (grey, 32 gb)",9834.00
+108,156,mi,"redmi note 5 pro (gold, 64 gb)",16999.00
+109,157,mi,"redmi note 5 (blue, 64 gb)",11999.00
+110,158,mi,"redmi note 5 pro (rose gold, 64 gb)",14999.00
+111,159,mi,"redmi 4 (black, 32 gb)",9175.00
+112,160,mi,"mi3 (metallic grey, 16 gb)",13999.00
+113,161,mi,"redmi 4 (gold, 32 gb)",9288.00
+114,162,mi,"redmi 5a (rose gold, 16 gb)",5999.00
+115,163,mi,"mi a1 (gold, 64 gb)",13999.00
+116,164,mi,"redmi y1 (grey, 64 gb)",11999.00
+117,165,mi,"redmi note 4 (black, 32 gb)",8999.00
+118,166,mi,"mi 4i (grey, 16 gb)",11999.00
+119,167,mi,"mi 4i (white, 16 gb)",11999.00
+120,168,mi,"redmi 4 (black, 16 gb)",7299.00
+121,169,mi,"mi max (dark grey, 32 gb)",14999.00
+122,170,mi,"redmi 3s (dark grey, 16 gb)",6999.00
+123,171,mi,"mi 4i (grey, 32 gb)",14999.00
+124,172,mi,"redmi 4a (gold, 32 gb)",6999.00
+125,173,mi,"redmi note 5 (rose gold, 64 gb)",11999.00
+126,174,mi,"mi a1 (rose gold, 64 gb)",13999.00
+127,175,mi,"mi a1 (red, 64 gb)",13999.00
+128,176,mi,"redmi 3s prime (gold, 32 gb)",8999.00
+129,177,mi,"redmi 5 (rose gold, 16 gb)",8499.00
+130,178,mi,"redmi 5 (black, 16 gb)",8499.00
+131,179,mi,"redmi 5 (gold, 16 gb)",8499.00
+132,180,mi,"redmi 5 (rose gold, 32 gb)",9894.00
+133,181,mi,"redmi 5 (gold, 32 gb)",9894.00
+134,182,mi,"redmi 5 (black, 32 gb)",9894.00
+135,183,mi,"redmi y1 (gold, 64 gb)",11999.00
+136,184,mi,"redmi 4 (gold, 64 gb)",11000.00
+137,185,mi,"redmi 1s (metal gray, 8 gb)",5999.00
+138,186,mi,"redmi 2 (white, 8 gb)",5999.00
+139,187,micromax,"micromax vdeo 2 (grey, 8 gb)",2999.00
+140,188,micromax,"micromax vdeo 2 (champagne, 8 gb)",2999.00
+141,189,micromax,"micromax spark 4g (black, 8 gb)",3699.00
+142,190,micromax,"micromax spark 4g (champagne, 8 gb)",3899.00
+143,191,micromax,"micromax canvas 6 (champagne, 32 gb)",6249.00
+144,192,micromax,"micromax canvas infinity pro (black, 64 gb)",10499.00
+145,193,micromax,"micromax bolt selfie (champagne, 8 gb)",3249.00
+146,194,micromax,"micromax canvas 1 (chrome black, 16 gb)",5799.00
+147,195,micromax,"micromax canvas amaze 2 (black, 16 gb)",4999.00
+148,196,micromax,"micromax canvas spark 3 (black, 8 gb)",3985.00
+149,197,micromax,"micromax canvas 5 lite q462 (brown, 16 gb)",4475.00
+150,198,micromax,"micromax canvas infinity (black, 32 gb)",8989.00
+151,199,micromax,"micromax spark vdeo (champagne, 8 gb)",3499.00
+152,200,micromax,"micromax bharat 5 pro (jet black, 32 gb)",7999.00
+153,201,micromax,"micromax evok dual note (prussian blue, 32 gb)",7999.00
+154,202,micromax,"micromax canvas 6 pro (black, 16 gb)",7499.00
+155,203,micromax,"micromax canvas 2 (chrome black, 16 gb)",6499.00
+156,204,micromax,"micromax canvas 2 (champagne, 16 gb)",6999.00
+157,205,micromax,"micromax canvas unite 4 plus (champange, 16 gb)",5499.00
+158,206,micromax,"micromax canvas unite 4 plus (silver, 16 gb)",6499.00
+159,207,micromax,"micromax canvas 5 lite (slate grey, 16 gb)",4475.00
+160,208,micromax,"micromax canvas 5 lite-special edition (walnut wood, 16 gb)",5400.00
+161,209,micromax,"micromax bolt q346 (grey, 8 gb)",3122.00
+162,210,micromax,"micromax vdeo 1 (champange, 8 gb)",3299.00
+163,211,micromax,"micromax bharat 5 plus (jet black, 16 gb)",6385.00
+164,212,micromax,"micromax spark 4g prime (cosmic grey, 16 gb)",5299.00
+165,213,micromax,"micromax dual 5 (champagne, 128 gb)",24999.00
+166,214,micromax,"micromax canvas 5 (maple wood, 32 gb)",7199.00
+167,215,micromax,"micromax bharat 2 plus (champagne, 8 gb)",4190.00
+168,216,micromax,"micromax bharat 2 (champ, 4 gb)",3299.00
+169,217,micromax,"micromax unite 2 a106 (grey, 8 gb)",6500.00
+170,218,micromax,"micromax bharat 2 ultra (black, 4 gb)",3030.00
+171,219,micromax,"micromax canvas 4 plus a315 (white and gold, 16 gb)",16345.00
+172,220,micromax,"micromax bolt q301 (grey, 4 gb)",3799.00
+173,221,micromax,"micromax vdeo 3 (champagne, 8 gb)",4949.00
+174,222,micromax,"micromax vdeo 3 (grey, 8 gb)",4949.00
+175,223,micromax,"micromax vdeo 4 (champagne, 8 gb)",6249.00
+176,224,micromax,"micromax bolt a089 (black, 4 gb)",4776.00
+177,225,micromax,"micromax mad a94 (grey, 4 gb)",6999.00
+178,226,micromax,"micromax bolt q326 (champagne, 4 gb)",3790.00
+179,227,micromax,"micromax canvas blaze 4g (black, 8 gb)",5495.00
+180,228,micromax,"micromax canvas fire (white & silver, 4 gb)",3299.00
+181,229,micromax,"micromax bharat 4 (champagne, 16 gb)",5100.00
+182,230,micromax,"micromax canvas juice (black, 672 mb)",6800.00
+183,231,micromax,"micromax canvas night cameo (white, 1 gb)",7999.00
+184,232,micromax,"micromax canvas l a108 (white, 8 gb)",10142.00
+185,233,micromax,"micromax q323 (grey, 4 gb)",3295.00
+186,234,micromax,"micromax bolt a71 (white, 512 mb)",6999.00
+187,235,micromax,"micromax bolt q381 (black, 8 gb)",4999.00
+188,236,micromax,"micromax canvas amaze (black, 8 gb)",6795.00
+189,237,micromax,"micromax canvas pulse 4g (grey, 16 gb)",6999.00
+190,238,micromax,"micromax canvas 2 colors a120 (grey, 4 gb)",7650.00
+191,239,micromax,"micromax canvas turbo mini a200 (white, 4 gb)",6495.00
+192,240,micromax,"micromax canvas xl2 (black, 4 gb)",8999.00
+193,241,micromax,"micromax unite 4 (silver, 8 gb)",6649.00
+194,242,micromax,"micromax canvas fire a093 (white and gold, 4 gb)",3199.00
+195,243,micromax,"micromax e460 (black, 32 gb)",9399.00
+196,244,micromax,"micromax canvas selfie 4 q349 (champagne, 8 gb)",5299.00
+197,245,micromax,"micromax canvas 5 lite-special edition (maple wood, 16 gb)",4699.00
+198,246,micromax,"micromax canvas fire 3 a096 (black, 4 gb)",4790.00
+199,247,micromax,"micromax canvas nitro 4g (black, 16 gb)",12499.00
+200,248,micromax,"micromax bolt a40 (grey, 75 mb)",4999.00
+201,249,micromax,"micromax bharat 4 (blue, 16 gb)",5500.00
+202,250,micromax,"micromax canvas 4 plus a315 dual sim - black & gold (black, gold, 16 gb)",17276.00
+203,251,micromax,"micromax canvas 5 lite q462 (golden brown, 16 gb)",4999.00
+204,252,micromax,"micromax q371 (blue, 8 gb)",6000.00
+205,253,micromax,"micromax bolt a79 (white, 4 gb)",3599.00
+206,254,micromax,"micromax x (blue, 56 mb)",1190.00
+207,255,micromax,"micromax x084 black,red (black, red, 40 mb)",999.00
+208,256,micromax,"micromax canvas selfie a255 (blue, 16 gb)",8990.00
+209,257,micromax,"micromax unite 2 a106 (grey, 4 gb)",6998.00
+210,258,micromax,"micromax canvas tube a118r (black, 4 gb)",6999.00
+211,259,micromax,"micromax superfone punk a44 (black, 140 mb)",4203.00
+212,260,micromax,"micromax ninja a91 (black, 2 gb)",7999.00
+213,261,micromax,"micromax bolt a62 (white, 202 mb)",3999.00
+214,262,micromax,"micromax q355 (white, 8 gb)",4900.00
+215,263,micromax,"micromax bolt a37 (black, 512 mb)",3999.00
+216,264,micromax,"micromax q345 (grey, 8 gb)",5399.00
+217,265,micromax,"micromax bolt a79 (white, yellow, 4 gb)",3151.00
+218,266,micromax,"micromax bolt a064 (black, 4 gb)",3000.00
+219,267,micromax,"micromax d321 (blue, 4 gb)",3999.00
+220,268,micromax,"micromax sliver 5 q450 (black, 16 gb)",6550.00
+221,269,micromax,"micromax q326 plus (white & champagne, 8 gb)",2965.00
+222,270,micromax,"micromax bolt a064 (white, 4 gb)",3000.00
+223,271,micromax,"micromax selfie a255 (white, 16 gb)",4990.00
+224,272,micromax,"micromax bolt ad4500 (white, 4 gb)",3999.00
+225,273,micromax,"micromax bolt supreme 4 q352 plus (grey, 16 gb)",4090.00
+226,274,micromax,"micromax canvas selfie lens (white, champaagne, 8 gb)",4250.00
+227,275,micromax,"micromax bolt s300 (black, 4 gb)",3299.00
+228,276,micromax,"micromax canvas hd plus a190 (black, 8 gb)",6900.00
+229,277,micromax,"micromax canvas beat a114r (black, 4 gb)",4799.00
+230,278,micromax,"micromax canvas pep (blue, 8 gb)",3780.00
+231,279,micromax,"micromax micromax q392 (grey, 8 gb)",6699.00
+232,280,micromax,"micromax canvas play 4g q469 dual sim - moon dust (grey, 16 gb)",5999.00
+233,281,micromax,"micromax bolt q335 (grey, 4 gb)",3615.00
+234,282,micromax,"micromax canvas selfie lens (moon dust grey, 8 gb)",4490.00
+235,283,micromax,"micromax play 4g (moondust grey, 16 gb)",5949.00
+236,284,micromax,"micromax canvas knight 2 e471 dual sim - white & champange gold (white, champange, 16 gb)",7099.00
+237,285,micromax,"micromax canvas selfie lens q345 dual sim - black (black, 8 gb)",6999.00
+238,286,micromax,"micromax evok power (champagne, 16 gb)",6999.00
+239,287,micromax,"micromax bolt supreme 4 (champagne, 8 gb)",6249.00
+240,288,micromax,"micromax bolt q346 (champagne, 8 gb)",2999.00
+241,289,micromax,"micromax unite 2 a106 (red, 8 gb)",7999.00
+242,290,micromax,"micromax q331 (black, silver, 4 gb)",4835.00
+243,291,micromax,"micromax canvas mega (slate grey, 8 gb)",4800.00
+244,292,micromax,"micromax bolt supreme 4 (silver, 8 gb)",3290.00
+245,293,micromax,"micromax canvas juice 4 (black, 8 gb)",3950.00
+246,294,micromax,"micromax canvas fire 5 q386 (silver, 16 gb)",3890.00
+247,295,micromax,"micromax bolt q333 (black, 4 gb)",2599.00
+248,296,micromax,"micromax canvas nitro a310 (white, 8 gb)",7499.00
+249,297,micromax,"micromax bolt d303 (blue, 4 gb)",2984.00
+250,298,micromax,"micromax bolt q324 (silver, 4 gb)",2899.00
+251,299,micromax,"micromax canvas juice 3 q392 (cosmic grey, 8 gb)",5700.00
+252,300,micromax,"micromax canvas juice 3 plus q394 dual sim - grey (grey, 16 gb)",6799.00
+253,301,micromax,"micromax canvas 5 (slate grey, 16 gb)",7190.00
+254,302,micromax,"micromax canvas xpress a99 (silver, 8 gb)",5550.00
+255,303,micromax,"micromax knight 2 (white +champange, 16 gb)",7699.00
+256,304,micromax,"micromax canvas win w121 (black, 8 gb)",5990.00
+257,305,micromax,"micromax android one (white, 4 gb)",3790.00
+258,306,micromax,"micromax canvas fire 5 (grey, 16 gb)",3499.00
+259,307,micromax,"micromax canvas fire 4g (grey, 8 gb)",3999.00
+260,308,micromax,"micromax canvas hue (white and gold, 8 gb)",6499.00
+261,309,micromax,"micromax canvas 4 plus a315 (black, 16 gb)",4967.00
+262,310,micromax,"micromax canvas doodle 4 q391 dual sim - white (white, 8 gb)",5200.00
+263,311,micromax,"micromax unite 3 (blue, 8 gb)",4050.00
+264,312,micromax,"micromax canvas nitro 4g e455 (black, 16 gb)",4990.00
+265,313,micromax,"micromax canvas juice 4g (grey, 8 gb)",6999.00
+266,314,micromax,"micromax bolt d303 (blue, 4 mb)",3699.00
+267,315,micromax,"micromax bolt q381 plus (coffee, 16 gb)",5999.00
+268,316,micromax,"micromax canvas a1 aq4502 dual sim - black (black, 8 gb)",5199.00
+269,317,micromax,"micromax juice 3 (cosmic grey, 8 gb)",5250.00
+270,318,micromax,"micromax canvas juice 3 (grey, 8 gb)",6990.00
+271,319,micromax,"micromax canvas juice 2 (silver, 8 gb)",4999.00
+272,320,micromax,"micromax canvas doodle 4 (blue, 8 gb)",4990.00
+273,321,micromax,"micromax canvas doodle 4 (blue, 8 gb)",7499.00
+274,322,micromax,"micromax unite 2 a106 (8 gb) (white, 8 gb)",3999.00
+275,323,micromax,"micromax unite 2 a106 (red, 4 gb)",5750.00
+276,324,micromax,"micromax bolt supreme 4 (grey, 8 gb)",3499.00
+277,325,micromax,"micromax canvas selfie lens q345 (grey, 1 gb)",5399.00
+278,326,micromax,"micromax canvas a1 (white, 8 gb)",3499.00
+279,327,micromax,"micromax canvas knight 2 (white & silver, 16 gb)",7199.00
+280,328,micromax,"micromax e471 knight2 (white+silver, 16 gb)",6999.00
+281,329,micromax,"micromax canvas mega 4g (blue, 16 gb)",5990.00
+282,330,micromax,"micromax canvas fire a093 (black & gold, 4 gb)",3299.00
+283,331,micromax,"micromax canvas elanza 2 a121 (white, 4 gb)",5000.00
+284,332,micromax,"micromax canvas pep (white, 8 gb)",3170.00
+285,333,micromax,"micromax a27 ninja (black, 160 mb)",3367.00
+286,334,micromax,"micromax bolt a47 (black, 512 mb)",4703.00
+287,335,micromax,"micromax bolt q325 (black, 4 gb)",2599.00
+288,336,micromax,"micromax canvas knight cameo a290 (black, 8 gb)",6900.00
+289,337,micromax,"micromax canvas hd plus a190 dual sim - white (white, 8 gb)",5950.00
+290,338,micromax,"micromax bolt a59 (grey, 512 mb)",4178.00
+291,339,micromax,"micromax canvas power a96 (black, 4 gb)",6761.00
+292,340,micromax,"micromax bolt a67 (white, 4 gb)",4999.00
+293,341,micromax,"micromax x (grey, 56 mb)",1849.00
+294,342,micromax,"micromax canvas selfie 2 (black, 8 gb)",3500.00
+295,343,micromax,"micromax bolt q338 (black, 8 gb)",3999.00
+296,344,micromax,"micromax canvas fire 2 a104 (black and silver, 4 gb)",4490.00
+297,345,micromax,"micromax bolt a069 (white, 4 gb)",5939.00
+298,346,micromax,"micromax unite 3 (white, 8 gb)",4140.00
+299,347,micromax,"micromax unite 4 (champagne, 8 gb)",6700.00
+300,348,micromax,"micromax a45 superfone punk (black, 180 mb)",4660.00
+301,349,micromax,"micromax superfone ninja2 a56 (blue, 150 mb)",5594.00
+302,350,micromax,"micromax a78 (coffee, 256 mb)",5790.00
+303,351,micromax,"micromax a70 (cocoa brown, 160 mb)",7005.00
+304,352,micromax,"micromax superfone lite a75 (charcoal black, 190 mb)",5883.00
+305,353,micromax,"micromax aisha a52 (yellow, 160 mb)",4389.00
+306,354,micromax,"micromax x102 (black, 4 gb)",1969.00
+307,355,micromax,"micromax canvas hd (aqua blue, 16 gb)",3299.00
+308,356,micromax,"micromax canvas music (black, 4 gb)",10200.00
+309,357,micromax,"micromax canvas music a88 (white, 4 gb)",8000.00
+310,358,micromax,"micromax smarty 4.3 a65 (white, 190 mb)",3990.00
+311,359,micromax,"micromax bolt a79 (black, 512 mb)",2789.00
+312,360,micromax,"micromax bolt a62 (black, 202 mb)",2599.00
+313,361,micromax,"micromax canvas lite a92 (white, 4 gb)",9450.00
+314,362,micromax,"micromax bolt a46 (black, 141 mb)",2400.00
+315,363,micromax,"micromax canvas 2 a110 (white, 2 gb)",11200.00
+316,364,micromax,"micromax bolt s301 dual sim - black (black, 4 gb)",2299.00
+317,365,micromax,"micromax d320 (black, 4 gb)",2980.00
+318,366,micromax,"micromax bolt d200 dual sim (grey, 512 mb)",2200.00
+319,367,micromax,"micromax bolt d321 (blue, 4 gb)",3490.00
+320,368,micromax,"micromax bolt s300 (black, 4 gb)",2290.00
+321,369,micromax,"micromax bolt a58 (black, 512 mb)",4436.00
+322,370,micromax,"micromax hue2 (white, gold, 16 gb)",5549.00
+323,371,micromax,"micromax bolt d320 (black, 4 gb)",2999.00
+324,372,micromax,"micromax selfie 2 (black, 8 gb)",5838.00
+325,373,micromax,micromax bling 3 a86 (white),9798.00
+326,374,micromax,"micromax doodle4 (blue, 8 gb)",4599.00
+327,375,micromax,"micromax canvas juice 3 plus (cosmic grey, 16 gb)",5990.00
+328,376,micromax,"micromax bolt q332 (black, 4 gb)",2599.00
+329,377,micromax,"micromax w121 (white, 8 gb)",4899.00
+330,378,micromax,"micromax bolt q335 (grey, 4 gb)",4100.00
+331,379,micromax,"micromax bolt d303 dual sim - blue (blue, 4 gb)",3220.00
+332,380,micromax,"micromax bharat 3 (red, 8 gb)",4850.00
+333,381,micromax,"micromax canvas elanza a93 (black, 4 gb)",8299.00
+334,382,micromax,"micromax canvas 2 colors a120 (white, 4 gb)",6316.00
+335,383,micromax,"micromax canvas turbo mini a200 (black, 4 gb)",13446.00
+336,1,samsung,"samsung galaxy on5 (gold, 8 gb)",5690.00
+337,2,samsung,"samsung galaxy on nxt (gold, 16 gb)",8999.00
+338,3,samsung,"samsung galaxy on nxt (gold, 64 gb)",10900.00
+339,4,samsung,"samsung galaxy j7 pro (black, 64 gb)",18900.00
+340,5,samsung,"samsung galaxy j3 pro (gold, 16 gb)",6490.00
+341,6,samsung,"samsung galaxy on max (gold, 32 gb)",11900.00
+342,7,samsung,"samsung galaxy on5 (black, 8 gb)",5690.00
+343,8,samsung,"samsung galaxy s8 (midnight black, 64 gb)",37990.00
+344,9,samsung,"samsung galaxy on max (black, 32 gb)",11900.00
+345,10,samsung,"samsung galaxy on nxt (black, 64 gb)",10900.00
+346,11,samsung,"samsung galaxy on nxt (black, 16 gb)",8999.00
+347,12,samsung,"samsung galaxy j3 pro (black, 16 gb)",6490.00
+348,13,samsung,"samsung galaxy j3 pro (white, 16 gb)",6490.00
+349,14,samsung,"samsung galaxy s9 plus (coral blue, 64 gb)",64900.00
+350,15,samsung,"samsung galaxy s8 (burgundy, 64 gb)",45990.00
+351,16,samsung,"samsung galaxy s8 plus (midnight black, 64 gb)",43990.00
+352,17,samsung,"samsung galaxy s7 (black onyx, 32 gb)",30990.00
+353,18,samsung,"samsung galaxy s7 (silver titanium, 32 gb)",27999.00
+354,19,samsung,"samsung galaxy s7 (gold platinum, 32 gb)",29900.00
+355,20,samsung,"samsung galaxy j7 prime (black, 32 gb)",13400.00
+356,21,samsung,"samsung galaxy s8 plus (coral blue, 64 gb)",43990.00
+357,22,samsung,"samsung galaxy j7 duo (black, 32 gb)",15990.00
+358,23,samsung,"samsung j7 max (gold, 32 gb)",14900.00
+359,24,samsung,"samsung galaxy j7 nxt (gold, 16 gb)",9490.00
+360,25,samsung,"samsung galaxy j2 2018 (black, 16 gb)",8190.00
+361,26,samsung,"samsung galaxy j2-2017 (absolute black, 8 gb)",6590.00
+362,27,samsung,"samsung galaxy j7 nxt (black, 32 gb)",11990.00
+363,28,samsung,"samsung galaxy j2 2018 (gold, 16 gb)",8190.00
+364,29,samsung,"samsung galaxy s9 plus (coral blue, 128 gb)",68900.00
+365,30,samsung,"samsung galaxy j2 pro (black, 16 gb)",7690.00
+366,31,samsung,"samsung galaxy s9 plus (midnight black, 128 gb)",68900.00
+367,32,samsung,"samsung galaxy j5 prime (gold, 32 gb)",11990.00
+368,33,samsung,"samsung galaxy j2 pro (silver, 16 gb)",7690.00
+369,34,samsung,"samsung galaxy s9 plus (lilac purple, 64 gb)",64900.00
+370,35,samsung,"samsung galaxy s9 plus (lilac purple, 128 gb)",68900.00
+371,36,samsung,"samsung galaxy j1 (4g) (gold, 8 gb)",7550.00
+372,37,samsung,"samsung z4 (gold, 8 gb)",5790.00
+373,38,samsung,"samsung galaxy on nxt (gold, 32 gb)",15900.00
+374,39,samsung,"samsung galaxy a9 pro (gold, 32 gb)",32490.00
+375,40,samsung,"samsung galaxy s9 (lilac purple, 64 gb)",57900.00
+376,41,samsung,"samsung galaxy s9 (midnight black, 128 gb)",61900.00
+377,42,samsung,"samsung galaxy j1 (4g) (white, 8 gb)",5999.00
+378,43,samsung,"samsung galaxy s9 (midnight black, 64 gb)",57900.00
+379,44,samsung,"samsung galaxy a5 2016 edition (gold, 16 gb)",15490.00
+380,45,samsung,"samsung galaxy a7-2017 (gold sand, 32 gb)",25900.00
+381,46,samsung,"samsung galaxy e7 (blue, 16 gb)",16999.00
+382,47,samsung,"samsung s7 edge (black pearl, 128 gb)",41900.00
+383,48,samsung,"samsung galaxy s3 neo (pebble blue, 16 gb)",22140.00
+384,49,samsung,"samsung galaxy core 2 (black, 4 gb)",5950.00
+385,50,samsung,"samsung galaxy a7 2016 edition (gold, 16 gb)",28520.00
+386,51,samsung,"samsung galaxy j7 prime (gold, 16 gb)",13899.00
+387,52,samsung,"samsung galaxy a7 2016 edition (black, 16 gb)",27000.00
+388,53,samsung,"samsung galaxy s6 edge+ (silver titanium, 32 gb)",49500.00
+389,54,samsung,"samsung galaxy s duos 2 (black, 4 gb)",7499.00
+390,55,samsung,"samsung galaxy j2 - 2016 (silver, 8 gb)",7945.00
+391,56,samsung,"samsung galaxy s duos 3 (charcoal grey, 4 gb)",5499.00
+392,57,samsung,"samsung galaxy s4 (white frost, 16 gb)",29990.00
+393,58,samsung,"samsung galaxy core prime (white, 8 gb)",7990.00
+394,59,samsung,"samsung galaxy s3 neo (marble white, 16 gb)",11999.00
+395,60,samsung,"samsung galaxy trend (ceramic white, 4 gb)",5999.00
+396,61,samsung,"samsung galaxy core 2 (white, 4 gb)",6000.00
+397,62,samsung,"samsung galaxy s8 plus (midnight black, 128 gb)",69990.00
+398,63,samsung,"samsung galaxy j7 prime (black, 16 gb)",13499.00
+399,64,samsung,"samsung galaxy j5 prime (gold, 16 gb)",12399.00
+400,65,samsung,"samsung galaxy note 3 (rose gold black, 32 gb)",11990.00
+401,66,samsung,"samsung galaxy note 3 (rose gold white, 32 gb)",11990.00
+402,67,samsung,"samsung z2 (gold, 8 gb)",5400.00
+403,68,samsung,"samsung galaxy s7 edge (pink gold, 32 gb)",49800.00
+404,69,samsung,"samsung galaxy note 3 (classic white, 32 gb)",11990.00
+405,70,samsung,"samsung galaxy j1 (white, 4 gb)",4990.00
+406,71,samsung,"samsung galaxy a5 2016 edition (white, 16 gb)",24900.00
+407,72,samsung,"samsung galaxy j5 (black, 8 gb)",9990.00
+408,73,samsung,"samsung galaxy note 3 (blush pink, 32 gb)",11990.00
+409,74,samsung,"samsung galaxy s5 (electric blue, 16 gb)",11990.00
+410,75,samsung,"samsung galaxy s6 edge (black sapphire, 32 gb)",37299.00
+411,76,samsung,"samsung galaxy note 3 (jet black, 32 gb)",11990.00
+412,77,samsung,"samsung galaxy j5 - 6 (new 2016 edition) (gold, 16 gb)",10990.00
+413,78,samsung,"samsung galaxy s8 (maple gold, 64 gb)",37990.00
+414,79,samsung,"samsung galaxy a5-2017 (black sky, 32 gb)",22900.00
+415,80,samsung,"samsung z2 (black, 8 gb)",4790.00
+416,81,samsung,"samsung galaxy s9 (coral blue, 64 gb)",57900.00
+417,82,samsung,"samsung tizen z3 (silver, 8 gb)",5590.00
+418,83,samsung,"samsung galaxy s4 (deep black, 16 gb)",15999.00
+419,84,samsung,"samsung galaxy core prime g361 dual sim - white (white, 8 gb)",7999.00
+420,85,samsung,"samsung galaxy grand prime 4g (grey, 8 gb)",8250.00
+421,86,samsung,"samsung galaxy j5 (gold, 8 gb)",7990.00
+422,87,samsung,"samsung galaxy note 5 (black sapphire, 32 gb)",32499.00
+423,88,samsung,"samsung galaxy note 4 (blossom pink, 32 gb)",39999.00
+424,89,samsung,"samsung tizen z3 (black, 8 gb)",5590.00
+425,90,samsung,"samsung galaxy star (silver, 4 gb)",4828.00
+426,91,samsung,"samsung galaxy s8 (orchid grey, 64 gb)",37990.00
+427,92,samsung,"samsung galaxy star pro (wine red, 4 gb)",5379.00
+428,93,samsung,"samsung z3 (black, 8 gb)",5590.00
+429,94,samsung,"samsung galaxy note 5 64gb single sim -black (black, 64 gb)",31499.00
+430,95,samsung,"samsung grand prime 4g (gold, 8 gb)",8900.00
+431,96,samsung,"samsung galaxy alpha (chrome, 32 gb)",21900.00
+432,97,samsung,"samsung galaxy grand 2 (white, 8 gb)",9590.00
+433,98,samsung,"samsung z1 (white, 4 gb)",3990.00
+434,99,samsung,"samsung galaxy note 5 32gb single sim - silver (silver, 32 gb)",42900.00
+435,100,samsung,"samsung galaxy chat (black, 4 gb)",6999.00
+436,101,samsung,"samsung galaxy on8 (gold, 16 gb)",13490.00
+437,102,samsung,"samsung galaxy s6 edge (white pearl, 32 gb)",28490.00
+438,103,samsung,"samsung galaxy star advance (black, 4 gb)",4199.00
+439,104,samsung,"samsung galaxy grand neo plus (white, 8 gb)",9790.00
+440,105,samsung,"samsung galaxy note 5 (dual sim) (silver titanium, 32 gb)",35499.00
+441,106,samsung,"samsung galaxy s6 (blue topaz, 32 gb)",36900.00
+442,107,samsung,"samsung galaxy j1 ace (blue, 4 gb)",5850.00
+443,108,samsung,"samsung galaxy s6 edge (green emerald, 32 gb)",34900.00
+444,109,samsung,"samsung galaxy s6 (black sapphire, 32 gb)",27900.00
+445,110,samsung,"samsung galaxy s4 mini (black mist, 8 gb)",15049.00
+446,111,samsung,"samsung galaxy star pro (white, 4 gb)",4199.00
+447,112,samsung,"samsung galaxy s duos (black, 4 gb)",10700.00
+448,113,samsung,"samsung galaxy s duos (white, 4 gb)",10700.00
+449,114,samsung,"samsung galaxy c9 pro (black, 64 gb)",29900.00
+450,115,samsung,"samsung galaxy s3 neo (black, 16 gb)",11722.00
+451,116,samsung,"samsung galaxy grand i9082 (metallic blue, 8 gb)",8999.00
+452,117,samsung,"samsung galaxy core prime (silver, 8 gb)",7899.00
+453,118,samsung,"samsung galaxy grand prime 4g (white, 8 gb)",8990.00
+454,119,samsung,"samsung galaxy star (ceramic white, 4 gb)",3900.00
+455,120,samsung,"samsung galaxy mega 2 (brown, black, 16 gb)",19500.00
+456,121,samsung,"samsung galaxy note 5 (silver titanium, 32 gb)",38900.00
+457,122,samsung,"samsung galaxy a7 2016 edition (white, 16 gb)",17490.00
+458,123,samsung,"samsung galaxy grand quattro (titan gray, 8 gb)",13077.00
+459,124,samsung,"samsung tizen z1 (white, 4 gb)",5499.00
+460,125,samsung,"samsung galaxy j7 - 6 (new 2016 edition) (white, 16 gb)",13800.00
+461,126,samsung,"samsung galaxy note 5 (gold platinum, 32 gb)",50865.00
+462,127,samsung,"samsung galaxy grand neo (white, 8 gb)",11595.00
+463,128,samsung,"samsung galaxy s5 (charcoal black, 16 gb)",21999.00
+464,129,samsung,"samsung galaxy e7 (black, 16 gb)",16233.00
+465,130,samsung,"samsung galaxy s4 mini (white frost, 8 gb)",13706.00
+466,131,samsung,"samsung grand prime 4g (white, 8 gb)",7999.00
+467,132,samsung,"samsung galaxy note 5 (dual sim) (black sapphire, 32 gb)",40900.00
+468,133,samsung,"samsung galaxy e7 (white, 16 gb)",15600.00
+469,134,samsung,"samsung galaxy s7 edge (blue coral, 32 gb)",37900.00
+470,135,samsung,"samsung galaxy a9 pro (black, 32 gb)",26900.00
+471,136,samsung,"samsung galaxy grand quattro (ceramic white, 8 gb)",13501.00
+472,137,samsung,"samsung galaxy s6 edge+ (gold platinum, 32 gb)",34900.00
+473,138,samsung,"samsung galaxy e5 (brown, 16 gb)",9999.00
