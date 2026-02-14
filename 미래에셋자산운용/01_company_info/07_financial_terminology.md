@@ -127,11 +127,14 @@ graph LR
 - **예시**: 내 계좌 잔고가 최고 2,000만 원까지 갔다가 한때 1,200만 원까지 떨어졌다면, MDD는 -40%입니다.
 
 ```mermaid
-xychart-beta
-    title "MDD 시각화 (최고점 대비 하락폭)"
-    x-axis [1월, 2월, 3월(고점), 4월, 5월(저점), 6월]
-    y-axis "잔고 (만 원)" 1000 --> 2500
-    line [1500, 1700, 2000, 1600, 1200, 1400]
+graph TD
+    High[최고점: 2,000만 원] -->|하락 시작| Fall[하락 구간: -40%]
+    Fall --> Low[최저점: 1,200만 원]
+    Low -->|회복 중| Current[현재 잔고: 1,400만 원]
+    
+    style High fill:#f9f,stroke:#333,stroke-width:2px
+    style Low fill:#ff9999,stroke:#333,stroke-width:4px
+    style Fall stroke-dasharray: 5 5
 ```
 
 - **의미**: 투자자가 겪을 수 있는 **최악의 고통**을 수치화한 것입니다. 수익률이 아무리 좋아도 MDD가 너무 크면 실제 운용 시 심리적으로 견디기 어렵습니다.
