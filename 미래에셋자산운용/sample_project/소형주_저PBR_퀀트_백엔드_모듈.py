@@ -18,6 +18,11 @@ elif platform.system() == 'Windows':
     plt.rc('font', family='Malgun Gothic')
 plt.rcParams['axes.unicode_minus'] = False
 
+# 3. Pandas 출력 설정: 터미널에서 DataFrame이 잘 보이도록 설정합니다.
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', 1000)
+pd.set_option('display.unicode.east_asian_width', True)
+
 class DataPipeline:
     """
     'AI 및 데이터 파이프라인' 역할을 수행하는 클래스입니다.
@@ -75,15 +80,36 @@ class QuantStrategy:
         market_cap_limit = df.groupby("year")['시가총액'].transform(lambda x: x.quantile(0.2))
         small_cap_mask = df['시가총액'] <= market_cap_limit
         
+        print(f"\n" + "="*50)
+        print(f" [Step 1] 소형주 필터링 결과 (market_cap_limit 추가)")
+        print(f"="*50)
+        temp_df = df.copy()
+        temp_df['기준선'] = market_cap_limit
+        temp_df['소형주여부'] = small_cap_mask
+        print(temp_df[['Name', 'year', '시가총액', '기준선', '소형주여부']].head())
+        
         # 2. 저PBR 종목 선별 (Lec 1-2 sort_values + nsmallest)
         # PBR 0.2 미만은 데이터 오류 가능성으로 제외
         filtered_df = df[small_cap_mask & (df['PBR'] >= 0.2)]
+        print(f"\n" + "="*50)
+        print(f" [Step 2] PBR 0.2 이상 필터링 완료 (filtered_df)")
+        print(f"="*50)
+        print(f"대상 종목 수: {len(filtered_df)}개")
+        print(filtered_df[['Name', 'year', '시가총액', 'PBR']].head())
         
         # 연도별로 PBR 낮은 순 20개 선정
         selected = filtered_df.sort_values('PBR').groupby('year').head(20)
+        print(f"\n" + "="*50)
+        print(f" [Step 3] 연도별 저PBR 20개 선정 완료 (selected)")
+        print(f"="*50)
+        print(selected[['Name', 'year', '시가총액', 'PBR']].head())
         
         # 시그널 매트릭스 생성 (Lec 1-4 pivot)
         signal_df = selected.pivot(index='year', columns='Name', values='PBR').notna()
+        print(f"\n" + "="*50)
+        print(f" [Step 4] 시그널 매트릭스 (signal_df - 일부)")
+        print(f"="*50)
+        print(signal_df.iloc[:5, :5])
         return signal_df
 
 class BacktestEngine:
@@ -101,11 +127,19 @@ class BacktestEngine:
         
         # 1. 수익률 계산 (Lec 2-2)
         returns_df = self.price_df.pct_change().shift(-1)
+        print(f"\n" + "="*50)
+        print(f" [Step 5] 수익률 매트릭스 (returns_df - 일부)")
+        print(f"="*50)
+        print(returns_df.iloc[:5, :5])
         
         # 2. 전략 수익률 계산 (벡터화 연산 - Lec 0)
         # signal_df와 returns_df의 인덱스/컬럼이 자동 정렬됨 (Alignment)
         portfolio_returns = (returns_df * self.signal_df.astype(int)).mean(axis=1)
         portfolio_returns = portfolio_returns.fillna(0)
+        print(f"\n" + "="*50)
+        print(f" [Step 6] 포트폴리오 연간 수익률 (portfolio_returns)")
+        print(f"="*50)
+        print(portfolio_returns.head())
         
         # 3. 누적 수익률 계산
         cum_returns = (1 + portfolio_returns).cumprod()
