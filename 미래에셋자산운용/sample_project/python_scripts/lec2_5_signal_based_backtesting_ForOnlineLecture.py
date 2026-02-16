@@ -79,14 +79,14 @@ import FinanceDataReader as fdr
 
 df = fdr.DataReader("005930", '2010-01-02', '2020-10-30')
 df = df[['Close']]
-df.head()
+print_header("df.head()"); print(df.head())
 
 df['Close'].rolling(21*6).mean()
 
 df['SMA_short'] = df['Close'].rolling(21*6).mean()
 df['SMA_long'] = df['Close'].rolling(21*12).mean()
 df = df.dropna()
-df.head()
+print_header("df.head()"); print(df.head())
 
 # 데이터를 시각화합니다.
 df.plot(figsize=(10, 5))
@@ -183,7 +183,7 @@ import FinanceDataReader as fdr
 
 df = fdr.DataReader("005930", '2010-01-02', '2020-10-30')
 df = df[['Close']]
-df.head()
+print_header("df.head()"); print(df.head())
 
 # position 구하기
 
@@ -207,7 +207,7 @@ position.shape
 df.loc[:, 'position'] = position
 
 df = df.dropna()
-df.head()
+print_header("df.head()"); print(df.head())
 
 _df = df.iloc[-200:]
 
@@ -309,7 +309,7 @@ import FinanceDataReader as fdr
 
 df = fdr.DataReader("005930", '2010-01-02', '2020-10-30')
 df = df[['Close']]
-df.head()
+print_header("df.head()"); print(df.head())
 
 window = 60
 df.loc[:, 'SMA'] = df['Close'].rolling(window).mean()
@@ -427,7 +427,7 @@ import FinanceDataReader as fdr
 
 df = fdr.DataReader("005930", '2010-01-02', '2020-10-30')
 df = df[['Open', 'High', 'Close', 'Low']]
-df.head()
+print_header("df.head()"); print(df.head())
 
 # 데이터를 시각화합니다.
 df['Open'].plot()
@@ -449,7 +449,7 @@ df['threshold'] = df['Open'] + df['range'].shift() * 0.6
 cond = df['threshold'] <= df['High']
 df['position'] = cond.astype(int)
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # return 구하기
 
@@ -457,7 +457,7 @@ p_current = df['Open']
 p_prev = df['threshold'].shift()
 df['rtn'] = p_current / p_prev - 1
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df = df.dropna()
 

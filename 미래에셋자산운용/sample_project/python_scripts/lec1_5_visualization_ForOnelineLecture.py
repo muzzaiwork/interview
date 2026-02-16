@@ -13,6 +13,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.max_columns', None)
@@ -25,6 +28,9 @@ import matplotlib.pyplot as plt
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # ![](https://matplotlib.org/_images/anatomy.png)
 
@@ -299,21 +305,18 @@ for f in fm.fontManager.ttflist:
     if 'Gothic' in f.name:
         print((f.name, f.fname))
 
-plt.rcParams["font.family"] = 'AppleGothic'
-
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(16,4))
-
-# 데이터를 시각화합니다.
-price_df.pct_change().plot(kind='kde', ax=ax1, title='kde');
-# 데이터를 시각화합니다.
-price_df.pct_change().plot(kind='box', ax=ax2, title='box');
-# 데이터를 시각화합니다.
-price_df.pct_change().plot(kind='hist', ax=ax3, title='hist', bins=30);
-
-# [학습 포인트] minus가 깨지는 경우 해결법
-
 import matplotlib as mpl
+import platform
 
+# 운영체제별 한글 폰트 설정
+if platform.system() == 'Darwin': # Mac
+    plt.rcParams["font.family"] = 'AppleGothic'
+elif platform.system() == 'Windows': # Windows
+    plt.rcParams["font.family"] = 'Malgun Gothic'
+else: # Linux
+    plt.rcParams["font.family"] = 'NanumGothic'
+
+# 마이너스 기호 깨짐 방지
 mpl.rcParams['axes.unicode_minus'] = False
 
 # matplotlib minus problem mac os
@@ -325,8 +328,8 @@ mpl.rcParams['axes.unicode_minus'] = False
 import seaborn as sns
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-df = pd.read_csv("my_data/Small_and_Big.csv", index_col=0, parse_dates=["date"])
-df.head()
+df = pd.read_csv("미래에셋자산운용/sample_project/my_data/Small_and_Big.csv", index_col=0, parse_dates=["date"])
+print_header("df.head()"); print(df.head())
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 median_df = df.groupby(['date']).agg({'시가총액 (보통)(평균)(원)': 'median'})
@@ -338,7 +341,7 @@ df = df.join(median_df, on="date")
 df.loc[df['시가총액 (보통)(평균)(원)'] < df['median_시가총액'], "size"] = "small"
 df.loc[df['시가총액 (보통)(평균)(원)'] >= df['median_시가총액'], "size"] = "big"
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # Count plot
 
@@ -364,9 +367,10 @@ df = df[df['date'] >= "2017-01-01"]
 
 df.shape
 
-df.head()
+print_header("df.head()"); print(df.head())
 
-# ### matplotlib version
+# 날짜 x tick label을 조금더 심플하게 나타나도록 만들기: DateTime object -> 문자열 object로 변환
+df['date'] = df['date'].dt.strftime("%Y-%m-%d")
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 df.groupby(['date'])['수익률(%)'].mean()
@@ -374,17 +378,12 @@ df.groupby(['date'])['수익률(%)'].mean()
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 df.groupby(['date'])['수익률(%)'].mean().plot(kind='bar', figsize=(18, 3))
 
-# 날짜 x tick label을 조금더 심플하게 나타나도록 만들기: DateTime object -> 문자열 object로 변환
-df['date'] = df['date'].dt.strftime("%Y-%m-%d")   # %Y, %m 등과 같은 표현에 대해서 조금더 자세하게 알고 싶으신 분은 구글에 python datetime format으로 검색해보세요!
-
 # datetime
 # strftime
 # strptime
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 df.groupby(['date'])['수익률(%)'].mean().plot(kind='bar', figsize=(18, 3))
-
-# ### seaborn version
 
 sns.barplot(data=df, x="date", y="수익률(%)")
 
@@ -447,12 +446,12 @@ df_list = []
 for i in range(2015, 2018):
     df_list.append(
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-        pd.read_csv("my_data/naver_finance/{}_12.csv".format(i))
+        pd.read_csv("미래에셋자산운용/sample_project/my_data/naver_finance/{}_12.csv".format(i))
     )
 
 df = pd.concat(df_list)
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df = df.dropna()
 

@@ -21,7 +21,7 @@ df = pd.DataFrame(
     },
     index=[1,2,3,4]
 )
-df
+print_header("df"); print(df)
 
 # Simple daily return (일별 수익률)
 
@@ -91,7 +91,7 @@ df1 = fdr.DataReader("005930", '2018-01-02', '2018-10-30')
 df2 = fdr.DataReader("069500", '2018-01-02', '2018-10-30')
 df = pd.concat([df1['Close'], df2['Close']], axis=1)
 df.columns = ['삼성전자', 'KODEX 200']
-df.head()
+print_header("df.head()"); print(df.head())
 
 # `shift()`
 
@@ -101,7 +101,7 @@ df.shift(periods=1).head()
 
 df.shift(1, freq="S").head()
 
-df.head()
+print_header("df.head()"); print(df.head())
 df.shift().head()
 
 (df / df.shift() - 1)
@@ -154,7 +154,7 @@ sns.pairplot(log_rtn_df);
 
 # 누적 수익률(Cumulative return) - Code
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.iloc[0]
 

@@ -13,6 +13,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # Pandas DataFrame의 사이즈가 큰 경우, 어떻게 화면에 출력을 할지를 세팅하는 코드
 pd.set_option("display.float_format", lambda x: f"{x:.3f}")
@@ -23,9 +26,9 @@ pd.set_option("display.max_columns", None)
 # [학습 포인트] 미국시장 재무제표 데이터 크롤링: https://nbviewer.jupyter.org/gist/FinanceData/35a1b0d5248bc9b09513e53be437ac42
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-df = pd.read_csv("my_data/naver_finance/2015_12.csv")
+df = pd.read_csv("미래에셋자산운용/sample_project/my_data/naver_finance/2015_12.csv")
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # Exploratory Data Analysis (EDA)
 
@@ -54,7 +57,7 @@ df['ticker'].dtype
 
 df = df.rename(columns={"ticker": "종목명"})
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # `describe()`
 
@@ -107,7 +110,7 @@ df['종목명'].value_counts(normalize=True)
 
 # value_counts() ignore np.nan
 a = pd.DataFrame({'a':[np.nan, 1, 2]})['a']
-a
+print("a:\n", a)
 
 # 위의 코드는  아래와 같음
 # a = pd.Series([np.nan, 1, 2])
@@ -117,7 +120,7 @@ a.value_counts()
 # example
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-a = pd.read_csv("my_data/symbol_sector.csv", index_col=0)
+a = pd.read_csv("미래에셋자산운용/sample_project/my_data/symbol_sector.csv", index_col=0)
 
 a.head()
 
@@ -129,7 +132,7 @@ a['Sector'].value_counts()
 
 # 정렬
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # top n
 
@@ -151,7 +154,7 @@ df.sort_values(
 
 # Subset 추출하기
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.shape
 
@@ -259,7 +262,7 @@ name_df[['순이익률(%)', 'EPS(원)']].head()
 # [학습 포인트] For Series data
 
 a = pd.Series([1,2,3], index=['a', 'b', 'c'])
-a
+print("a:\n", a)
 
 a.iloc[0]
 
@@ -311,7 +314,7 @@ tmp_df > 2
 
 # ### DataFrame내에서 "Boolean Series" 만들기
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df['순이익률(%)']
 df['영업이익률(%)']
@@ -430,7 +433,7 @@ a.any()
 # ### example
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-a = pd.read_csv("my_data/symbol_sector.csv", index_col=0)
+a = pd.read_csv("미래에셋자산운용/sample_project/my_data/symbol_sector.csv", index_col=0)
 a.head()
 
 a['Sector'].value_counts()
@@ -493,8 +496,8 @@ import numpy as np
 a = np.array([1,2,3])
 # NumPy 배열(ndarray)을 생성합니다.
 b = np.array([1,2,3])
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a + b
 
@@ -558,7 +561,7 @@ price_df[['Open', 'Close']].sum(axis=0).head()
 # Example
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-b = pd.read_csv("my_data/multi_price.csv", index_col=[0])
+b = pd.read_csv("미래에셋자산운용/sample_project/my_data/multi_price.csv", index_col=[0])
 
 b.head()
 
@@ -601,7 +604,7 @@ df1.le(2)
 
 # [학습 포인트] 따라서 아래와같은 구문은 위험할 수 있음
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.shape
 

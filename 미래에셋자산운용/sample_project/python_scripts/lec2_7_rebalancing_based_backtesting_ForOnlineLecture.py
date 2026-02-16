@@ -121,7 +121,7 @@ df = pd.DataFrame(
     },
     index=pd.to_datetime(["2018-01-31", "2018-02-10", "2018-02-20", "2018-02-28", "2018-03-20", "2018-03-29", "2018-04-30",])
 )
-df
+print_header("df"); print(df)
 
 # ### shifted return 구하기
 
@@ -227,7 +227,7 @@ individual_cum_rtn_df.sum(axis=1)   # * 100000000
 
 # 실수할만한 내용
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 rtn_df = get_returns_df(df, log=False)
 cum_rtn_df = df / df.iloc[0]
@@ -249,7 +249,7 @@ a_2
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
 df = pd.read_csv("data/us_etf_1.csv", index_col=0)
 df.index = pd.to_datetime(df.index)
-df.head()
+print_header("df.head()"); print(df.head())
 
 df1 = df.loc["2017-01-01":]
 cum_rtn_df = df1 / df1.iloc[0]
@@ -302,7 +302,7 @@ df = pd.DataFrame(
     },
     index=pd.to_datetime(["2018-01-31", "2018-02-10", "2018-02-20", "2018-02-28", "2018-03-20", "2018-03-29", "2018-04-30",])
 )
-df
+print_header("df"); print(df)
 
 rtn_df = get_returns_df(df, log=False)
 shifted_rtn_df = rtn_df.shift(-1).fillna(0)

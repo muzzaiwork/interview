@@ -13,6 +13,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.max_columns', None)
@@ -22,20 +25,20 @@ pd.set_option('display.max_columns', None)
 # `loc[]`을 사용하여 추가하기
 
 df = pd.DataFrame(columns=['a', 'b'])
-df.head()
+print_header("df.head()"); print(df.head())
 
 # ### Add data as 'list'
 
 df.loc[0] = [1, 2]
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.loc['ㅋㅋ'] = [1, 2]
-df.head()
+print_header("df.head()"); print(df.head())
 
 # ### Add data as 'dict'
 
 df.loc[len(df)] = {'b' : 'ㅎ', 'a': 'ㅋ'}
-df.head()
+print_header("df.head()"); print(df.head())
 
 # ### Add data as 'Series'
 
@@ -91,7 +94,7 @@ names_df
 
 # `name` arg를 통해서 Series의 name을 부여하기
 s = pd.Series({'Name': 'Zach', 'Age': 3}, name=len(names_df))
-s
+print("s:\n", s)
 
 # names_df.append(s)  # Pandas 2.0+ 에서 삭제됨
 pd.concat([names_df, s.to_frame().T])
@@ -282,15 +285,15 @@ left.set_index('key').join(right)
 
 a = pd.DataFrame([1,2,3], index=['a','b','c'], columns=['안녕'])
 b = pd.DataFrame([4,2,6], index=['a','c','d'], columns=['안녕'])
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a.join(b, lsuffix="_x", rsuffix="_y", how="inner")
 
 # [학습 포인트] 예제3 (앞의 lec1\_3에서 median_시가총액 연결하기)
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-a_df = pd.read_csv("my_data/Small_and_Big.csv", index_col=[0])
+a_df = pd.read_csv("미래에셋자산운용/sample_project/my_data/Small_and_Big.csv", index_col=[0])
 a_df.head()
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
@@ -382,8 +385,8 @@ pd.merge(close_df, vol_df.iloc[:2], how="outer").head(5)
 
 a = pd.DataFrame([1,2,3], index=['a','b','c'], columns=['안녕'])
 b = pd.DataFrame([4,2,6], index=['a','c','d'], columns=['안녕'])
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a.merge(b)
 
@@ -397,15 +400,15 @@ a.join(b, lsuffix="_x", rsuffix="_y", how="inner")
 
 a = pd.DataFrame({"a": [1,2,3],}, index=[1,2,3])
 b = pd.DataFrame({"b": [1,4,5],}, index=[1,4,5])
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 pd.concat([a, b], axis=1)
 
 a = pd.DataFrame({"a": [1,2,3],}, index=[1,2,2])
 b = pd.DataFrame({"b": [1,4,5],}, index=[1,4,5])
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 # error 발생! => concat()을 cartesian product가 불가능하기 때문에, 중복 index 혹은 column이 있는 경우 작동하지 못함
 pd.concat([a, b], axis=1)
@@ -415,9 +418,9 @@ pd.concat([a, b], axis=1)
 # flipkart
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-product_df = pd.read_csv("my_data/product.csv", index_col=0)
+product_df = pd.read_csv("미래에셋자산운용/sample_project/my_data/product.csv", index_col=0)
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-review_df = pd.read_csv("my_data/review.csv", index_col=0)
+review_df = pd.read_csv("미래에셋자산운용/sample_project/my_data/review.csv", index_col=0)
 
 product_df.shape
 review_df.shape
@@ -445,7 +448,7 @@ flipkart_df.head(2)
 # Amazon
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-amazon_df = pd.read_csv("my_data/amazon_review1.csv", index_col=0)
+amazon_df = pd.read_csv("미래에셋자산운용/sample_project/my_data/amazon_review1.csv", index_col=0)
 amazon_df.head(2)
 
 # 데이터 합치기
@@ -456,7 +459,7 @@ flipkart_df.shape
 df = pd.concat([amazon_df, flipkart_df], axis=0)   # `keys` argument를 활용하셔서 site를 구분하셔도 됩니다
 df.shape
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df['date'] = pd.to_datetime(df['date'])
 df['price'] = df['price'].astype(float)
@@ -468,7 +471,7 @@ df.rename(columns={'title_x':'name', 'title_y':'title'}, inplace=True)
 
 df['price_grp'] = pd.cut(df['price'], [0, 5000, 15000, 200000], labels=["저가", "중가", "고가"])
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # 전체제품 기간별 제품 평균가격
 

@@ -8,6 +8,9 @@
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # **Pandas version 0.25.1 (`pip install pandas==0.25.1`)**
 
@@ -19,14 +22,14 @@ InteractiveShell.ast_node_interactivity = "all"
 import pandas as pd
 
 a = pd.Series([1,2,3,4])
-a
+print("a:\n", a)
 
 # 첫번째 방법
 s2 = pd.Series(
     [1, 2, 3, 4],
     index=['a', 'b', 'c', 'd']
 )
-s2
+print("s2:\n", s2)
 
 s2.head(2)
 
@@ -44,7 +47,7 @@ import numpy as np
 np.nan
 
 s = pd.Series([10, 0, 1, 1, 2, 3, 4, 5, 6, np.nan])
-s
+print("s:\n", s)
 
 len(s)
 
@@ -83,7 +86,7 @@ s3 + s4
 s1 = np.arange(1, 6, 1)
 s2 = np.arange(6, 11, 1)
 s1
-s2
+print("s2:\n", s2)
 
 df = pd.DataFrame(
     {
@@ -91,7 +94,7 @@ df = pd.DataFrame(
         'c2': s2
     }
 )
-df
+print_header("df"); print(df)
 
 # 1번째 방법  (Default index and columns would be set)
 pd.DataFrame(
@@ -157,7 +160,7 @@ df = pd.DataFrame(
         'c2': s2
     }
 )
-df
+print_header("df"); print(df)
 
 # DataFrame 생성시, Series간에 Index 기준으로 자동정렬!
 
@@ -166,12 +169,12 @@ s2 = pd.Series(np.arange(6, 11, 1))
 s3 = pd.Series(np.arange(12, 15), index=[1, 2, 10])  # this one has index values unlike s1, s2
 s1
 
-s2
+print("s2:\n", s2)
 
-s3
+print("s3:\n", s3)
 
 df = pd.DataFrame({'c1': s1, 'c2': s2, 'c3': s3})
-df
+print_header("df"); print(df)
 
 # DataFrame에 새로운 column 추가하기
 
@@ -179,7 +182,7 @@ my_dict['a'] = 1
 
 df['c4'] = pd.Series([1,2,3,4], index=[0, 1, 2, 10])
 
-df
+print_header("df"); print(df)
 
 # Reindexing
 
@@ -188,18 +191,18 @@ df
 # ### 참고: index 자체를 바꾸는 것("index-value" mapping이 깨짐)
 
 s = pd.Series([1,2,3,4,5])
-s
+print("s:\n", s)
 
 s.index = ['a', 'b', 'c', 'd', 'e']
-s
+print("s:\n", s)
 
 # ### 참고 :  `set_index()` : 특정 column을 index로 만듦
 
 # 위의 'DataFrame 생성시, Series간에 Index 기준으로 자동정렬!' 챕터에서 정의한 dataframe입니다
-df
+print_header("df"); print(df)
 
 df['c5'] = pd.Series([1,2,3,4,5,6], index=[0,1,2,3,4,10])
-df
+print_header("df"); print(df)
 
 df.set_index("c5")
 
@@ -208,27 +211,27 @@ df.set_index("c5")
 s2 = s.reindex(
     ['a', 'c', 'e', 'g']
 )
-s2
+print("s2:\n", s2)
 
 # Copied
 s2['a'] = 0
-s2
+print("s2:\n", s2)
 
 # s는 s2의 값을 바꿔도 안 건드려짐
-s
+print("s:\n", s)
 
 # [X] 이렇게 하면 안됨
 s1 = pd.Series([0, 1, 2], index=[0, 1, 2])
 s2 = pd.Series([3, 4, 5], index=['0', '1', '2'])
 s1
-s2
+print("s2:\n", s2)
 
 s1 + s2
 
 s1.index
 
 s2 = s2.reindex(s1.index)
-s2
+print("s2:\n", s2)
 
 # 첫번째 방법
 s1 = pd.Series([0, 1, 2], index=[0, 1, 2])
@@ -236,7 +239,7 @@ s2 = pd.Series([3, 4, 5], index=['0', '1', '2'])
 
 s2.index = s2.index.astype(int)
 
-s2
+print("s2:\n", s2)
 
 s2.index
 
@@ -256,7 +259,7 @@ s1 + s2
 # [학습 포인트] `fill_value`
 
 s2 = s.copy()
-s2
+print("s2:\n", s2)
 
 s2.reindex(['a', 'f'])
 
@@ -265,7 +268,7 @@ s2.reindex(['a', 'f'], fill_value=0)  # fill 0 insteand of Nan
 # [학습 포인트] `method`
 
 s3 = pd.Series(['red', 'green', 'blue'], index=[0, 3, 5])
-s3
+print("s3:\n", s3)
 
 s3.reindex(np.arange(0,7))
 
@@ -283,6 +286,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # Pandas DataFrame의 사이즈가 큰 경우, 어떻게 화면에 출력을 할지를 세팅하는 코드
 pd.set_option("display.float_format", lambda x: f"{x:.3f}")

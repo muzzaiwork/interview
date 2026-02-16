@@ -16,15 +16,18 @@ import pandas as pd
 # 하나의 cell에서 multiple output을 출력을 가능하게 하는 코드
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 a = 1
-a
+print("a:\n", a)
 
 a = 1
 b = 2
 
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 # Pandas DataFrame의 사이즈가 큰 경우, 어떻게 화면에 출력을 할지를 세팅하는 코드
 pd.set_option("display.float_format", lambda x: f"{x:.3f}")

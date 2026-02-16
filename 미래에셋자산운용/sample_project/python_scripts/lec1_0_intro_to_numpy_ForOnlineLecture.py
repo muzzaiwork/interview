@@ -18,6 +18,9 @@
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # NumPy 라이브러리를 np라는 별칭으로 임포트합니다.
 import numpy as np
@@ -26,7 +29,7 @@ import numpy as np
 
 # NumPy 배열(ndarray)을 생성합니다.
 a = np.array([1, 2, 3])
-a
+print("a:\n", a)
 
 type(a)
 
@@ -68,7 +71,7 @@ a + b
 
 # NumPy 배열(ndarray)을 생성합니다.
 a = np.array([  [1, 2],  [3, 4]   ])
-a
+print("a:\n", a)
 
 # readability 높이기
 # NumPy 배열(ndarray)을 생성합니다.

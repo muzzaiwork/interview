@@ -13,6 +13,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.max_columns', None)
@@ -30,8 +33,8 @@ warnings.filterwarnings('ignore')
 # 영상에서는 fin_statement_2005_2017.csv이지만(데이터 문제가 있는 파일),
 # 해당 데이터에서 문제를 발견하여, fin_statement_new.csv라는 데이터(2006 ~ )로 대체되었습니다
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-df = pd.read_csv("my_data/fin_statement_new.csv")
-df.head()
+df = pd.read_csv("미래에셋자산운용/sample_project/my_data/fin_statement_new.csv")
+print_header("df.head()"); print(df.head())
 
 # "12개월전대비수익률(현금배당포함)" 컬럼은 미리 제거하여 파일을 업로드했습니다
 df = df.drop(["상장일"], axis=1)
@@ -105,15 +108,15 @@ yearly_price_df['AD모터스'].pct_change(fill_method=None).shift(-1)
 
 a = pd.DataFrame([[1,2], [3, np.nan,], [5,6]], columns=["a", "b"])
 b = pd.DataFrame([[1,2], [3, 4,], [5,6]], columns=["a", "b"])*10
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a * b
 
 a = pd.DataFrame([[1,2], [3, np.nan,], [5,6]], columns=["a", "b"])
 b = pd.DataFrame([[1,2,3], [3, 4,5], [5,6,7]], columns=["c", "b", "d"])*10
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a * b
 
@@ -150,7 +153,7 @@ return_df * asset_on_df
 
 # top_n
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 indicator = "ROA"
 

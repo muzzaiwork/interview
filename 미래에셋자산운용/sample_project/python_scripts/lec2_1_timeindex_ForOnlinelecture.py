@@ -32,6 +32,9 @@
 # 구글에 "multiple output in jupyter withtout print()" 로 검색하면 나오는 코드 중에 하나이니, 딱히 외우거나 하시지 않아도 됩니다.
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 # Pandas 라이브러리를 pd라는 별칭으로 임포트합니다.
 import pandas as pd
@@ -60,7 +63,7 @@ type(datetime(2021, 1, 1))
 
 a = datetime(2014, 8, 1)
 b = pd.Timestamp(a)
-b
+print("b:\n", b)
 
 pd.Timestamp("2021-01-02")
 
@@ -171,12 +174,12 @@ for p in p2013:
 
 # DateTimeIndex : collections of `Timestamp` objects
 a = pd.date_range('1/1/2013', '12/31/2013', freq='M')
-a
+print("a:\n", a)
 a[0]
 
 # PeriodIndex : collections of `Period` objects
 b = pd.period_range('1/1/2013', '12/31/2013', freq='M')
-b
+print("b:\n", b)
 b[0]
 
 # ### As a `Series`'s index

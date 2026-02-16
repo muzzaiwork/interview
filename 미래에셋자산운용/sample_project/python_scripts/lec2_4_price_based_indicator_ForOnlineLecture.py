@@ -50,7 +50,7 @@ df['삼성전자'].expanding(min_periods=2).mean().head()
 df.loc[:, "삼성전자_60_SMA_min_period"] = df['삼성전자'].rolling(window=60, min_periods=1).mean()
 df.loc[:, "삼성전자_expanding"] = df['삼성전자'].expanding(min_periods=1).mean()
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 import matplotlib
 import matplotlib.font_manager as fm

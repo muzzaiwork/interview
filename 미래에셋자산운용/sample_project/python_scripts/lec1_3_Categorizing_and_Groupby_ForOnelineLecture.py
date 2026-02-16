@@ -13,6 +13,9 @@ import pandas as pd
 
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+def print_header(title):
+    print(f"\n{'='*20} {title} {'='*20}")
+
 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.max_columns', None)
@@ -20,14 +23,14 @@ pd.set_option('display.max_columns', None)
 # 데이터 준비
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-df = pd.read_csv("my_data/naver_finance/2016_12.csv")
+df = pd.read_csv("미래에셋자산운용/sample_project/my_data/naver_finance/2016_12.csv")
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # 수익률 구하기 (16.12 ~ 17.12)
 
 df['rtn'] = df['price2'] / df['price'] - 1
-df
+print_header("df"); print(df)
 
 # PER 값에 따라 group number 부여하기
 
@@ -130,7 +133,7 @@ per_cuts2.head()
 pd.qcut(df['PER(배)'], 3, labels=[1,2,3]).head()
 
 df.loc[:, 'PER_Score2'] = pd.qcut(df['PER(배)'], 10, labels=range(1, 11))
-df.head()
+print_header("df.head()"); print(df.head())
 
 df['PER_Score2'].value_counts()
 
@@ -156,7 +159,7 @@ df['PER_Score2'].isna().sum()
 # Split - Apply - Combine
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-df = pd.read_csv("my_data/naver_finance/2016_12.csv")
+df = pd.read_csv("미래에셋자산운용/sample_project/my_data/naver_finance/2016_12.csv")
 df.shape
 
 df = df.dropna()
@@ -176,7 +179,7 @@ g_df.set_index('ticker', inplace=True)
 
 g_df.head()
 
-g_df.get_dtype_counts()
+g_df.dtypes.value_counts()
 
 # groupby() & aggregation
 
@@ -296,10 +299,10 @@ g_df.groupby("PBR_score").agg(
 # [학습 포인트] aggregation function이 아닌경우 => `agg()`가 error를 발생시킴
 
 # sqrt는 aggregation 방식의 연산이 아님!
-np.sqrt([1, 2, 3, 4])
+print("np.sqrt([1, 2, 3, 4]):", np.sqrt([1, 2, 3, 4]))
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
-g_df.groupby("PER_score")['rtn'].agg(np.sqrt)
+# g_df.groupby("PER_score")['rtn'].agg(np.sqrt) # 주석 처리: 최신 pandas에서는 aggregation이 아닌 함수 사용 시 에러 발생
 
 # [학습 포인트] Visualization(시각화) 맛보기
 
@@ -326,7 +329,7 @@ g_df1 = g_df.groupby(["PBR_score", "PER_score"])\
 g_df1.head()
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
-a = g_df.groupby(["PBR_score", "PER_score"])['rtn', 'ROE(%)'].agg(['sum', 'mean'])
+a = g_df.groupby(["PBR_score", "PER_score"])[['rtn', 'ROE(%)']].agg(['sum', 'mean'])
 
 # Multi-index라고 해서 쫄 것 없음!
 a.loc[1]
@@ -339,7 +342,7 @@ df = pd.DataFrame({
     'a':['소형주', np.nan, '대형주', '대형주'],
     'b':[np.nan, 2,         3,     np.nan],
 })
-df
+print_header("df"); print(df)
 
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 df.groupby(['a'])['b'].mean()
@@ -351,8 +354,8 @@ a = g_df.groupby(["PER_score"]                ).agg({'rtn': ['mean', 'std']}).he
 # 특정 열을 기준으로 데이터를 그룹화합니다.
 b = g_df.groupby(["PER_score"], as_index=False).agg({'rtn': ['mean', 'std']}).head(2)
 
-a
-b
+print("a:\n", a)
+print("b:\n", b)
 
 a.index
 a.columns
@@ -384,7 +387,7 @@ g_df1.head()
 # 실전예제: 시가총액으로 Small and Big 나누기
 
 # CSV 파일을 읽어와 데이터프레임으로 저장합니다.
-a_df = pd.read_csv("my_data/Small_and_Big.csv", index_col=[0])
+a_df = pd.read_csv("미래에셋자산운용/sample_project/my_data/Small_and_Big.csv", index_col=[0])
 a_df.head()
 
 a_df.tail()

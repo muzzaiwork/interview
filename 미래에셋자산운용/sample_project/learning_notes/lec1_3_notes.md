@@ -98,11 +98,13 @@ print(df['PER_Score_Q'].value_counts().head(3))
 `groupby()`는 그룹화 가능 여부만 검증하며, 실제 연산은 `agg()` 또는 집계 함수(`mean`, `sum` 등)를 호출할 때 발생합니다.
 
 ```python
-# 결측치 제거 후 복사본 생성
+# 1. 결측치 제거 후 복사본 생성
 g_df = df.dropna().copy()
+
+# 2. 'ticker' 컬럼을 인덱스로 설정
 g_df.set_index('ticker', inplace=True)
 
-# PBR 기준 그룹별 평균 수익률 계산
+# 3. PBR 기준 그룹별 평균 수익률 계산
 pbr_rtn = g_df.groupby("PBR_score").agg({'rtn': 'mean'})
 print(pbr_rtn.head(2))
 # 출력:
@@ -111,6 +113,12 @@ print(pbr_rtn.head(2))
 # 1         -0.001363
 # 2          0.020453
 ```
+
+**[코드 상세 설명]**
+*   **`dropna().copy()`**: 데이터프레임에서 결측치(NaN)를 제거하고 새로운 복사본을 생성합니다. 원본 데이터를 안전하게 보호하기 위함입니다.
+*   **`set_index('ticker', inplace=True)`**: 종목코드(`ticker`)를 데이터의 식별자(Index)로 설정합니다. 이렇게 하면 이후 통계 계산 시 문자열 데이터인 티커가 계산 대상에서 제외되어 편리합니다.
+*   **`groupby("PBR_score")`**: 지정한 컬럼(PBR 점수)을 기준으로 데이터를 그룹화합니다.
+*   **`agg({'rtn': 'mean'})`**: 그룹화된 데이터 내에서 특정 컬럼(수익률)의 평균(`mean`)을 계산하여 요약합니다.
 
 ### 3.2. 다중 인덱스 및 다중 집계
 여러 컬럼을 기준으로 그룹화하거나, 여러 개의 통계량을 한 번에 산출할 수 있습니다.
@@ -138,17 +146,28 @@ print(g_results.head(2))
 `agg()` 사용 시 생성되는 계층적 컬럼 구조(Multi-index)를 다루기 쉽게 병합하는 실무 팁입니다.
 
 ```python
-# 계층 구조 확인
-level0 = g_results.columns.get_level_values(0)
-level1 = g_results.columns.get_level_values(1)
+# 1. 계층적 컬럼 구조 확인
+# g_results.columns는 (rtn, mean), (rtn, std) 처럼 튜플 형태의 Multi-index입니다.
+level0 = g_results.columns.get_level_values(0) # 상위 레벨 (rtn, ROE(%) 등)
+level1 = g_results.columns.get_level_values(1) # 하위 레벨 (mean, std, size 등)
 
-# 컬럼명 병합 (예: rtn_mean, rtn_std)
+# 2. 컬럼명 병합 (예: rtn_mean, rtn_std)
+# 두 레벨의 이름을 문자열로 더해 새로운 컬럼명 리스트를 만듭니다.
 g_results.columns = level0 + '_' + level1
+
+# 3. 인덱스 초기화
+# groupby의 기준이었던 PBR_score, PER_score를 인덱스에서 일반 컬럼으로 꺼냅니다.
 g_results = g_results.reset_index()
 
 print(g_results.columns)
 # 출력: Index(['PBR_score', 'PER_score', 'rtn_mean', 'rtn_std', 'ROE(%)_mean', 'ROE(%)_size'], dtype='object')
 ```
+
+**[코드 상세 설명]**
+*   **Multi-index**: `agg()` 함수에 여러 개의 통계량을 요청하면, 판다스는 '어떤 컬럼의(Level 0) 어떤 통계량(Level 1)'인지를 구분하기 위해 2층 구조의 컬럼명을 만듭니다. 이를 Multi-index라고 합니다.
+*   **`get_level_values(n)`**: Multi-index에서 특정 층(Level)의 이름들만 골라내는 함수입니다. 0은 가장 윗줄, 1은 그 다음 줄을 의미합니다.
+*   **컬럼명 병합 (`level0 + '_' + level1`)**: 2층으로 나뉜 컬럼명은 엑셀로 저장하거나 나중에 다시 조회할 때 불편할 수 있습니다. 이를 `rtn_mean` 처럼 한 줄의 문자열로 합쳐주면 다루기가 훨씬 수월해집니다.
+*   **`reset_index()`**: `groupby`를 하면 기준이 된 컬럼들이 데이터의 '이름표(Index)'가 됩니다. 이를 다시 일반적인 '데이터 열(Column)'로 되돌려 놓는 작업입니다. 분석 결과를 시각화하거나 파일로 저장할 때 자주 사용됩니다.
 
 ---
 

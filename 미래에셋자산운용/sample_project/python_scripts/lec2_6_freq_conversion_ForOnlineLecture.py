@@ -95,7 +95,7 @@ by_hour.interpolate().diff()
 
 # `kind` arg
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.resample("M", kind="period").mean()
 df.resample("M", kind="timestamp").mean()
@@ -105,14 +105,14 @@ df.resample("M", kind="timestamp").mean().index
 
 # OHLC
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 # df.resample("W").ohlc().head()
 df['Close'].resample("M").ohlc().head()
 
 # `asfreq()`와 차이
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.asfreq("M")   # 얘는 DataFrame을 뱉어냄
 df.resample("M")
@@ -155,7 +155,7 @@ month_cum_rtn_df = (np.exp(log_rtn_df.resample("M").sum())-1)
 month_cum_rtn_df.head()
 month_cum_rtn_df.loc['2010-01-31']
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 (df.loc["2009-10-30", 'Close'] / df.loc["2009-09-30", 'Close']) - 1
 
@@ -166,14 +166,14 @@ df.loc["2009-10-28":].head(3)
 
 # [학습 포인트] 정확하게 '월말 데이터'를 내가 가지고 있는 데이터의 '월 말 날짜'에 가져오기
 
-df.head()
+print_header("df.head()"); print(df.head())
 
 df.index.year
 df.index.month
 
 df['year'] = df.index.year
 df['month'] = df.index.month
-df.head()
+print_header("df.head()"); print(df.head())
 
 monthly_df = df.drop_duplicates(subset=['year', 'month'], keep='last')
 monthly_df
