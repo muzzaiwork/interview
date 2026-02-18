@@ -106,7 +106,8 @@ graph TD
 ### Step 1. 데이터 수집 (Data Ingestion)
 - **대상**: 거래소 시세(OHLCV), 기업 재무제표(PBR, PER 등), 대체 데이터(뉴스, SNS).
 - **작업**: 외부 벤더(Bloomberg, Reuters) API 및 공공 데이터(KRX, DART) 연동.
-- **핵심**: 데이터 누락 없는 안정적인 수집 (Airflow 등을 활용한 스케줄링).
+- **핵심**: 데이터 누락 없는 안정적인 수집.
+    - **Airflow 활용**: 데이터 파이프라인의 스케줄링, 모니터링, 장애 복구(Retry)를 자동화하는 오픈소스 플랫폼입니다. (DAG 구조 활용)
 
 #### 🛠 Apache Airflow란? (Workflow Orchestrator)
 데이터 파이프라인의 **스케줄링 및 모니터링**을 자동화하는 오픈소스 플랫폼입니다.
