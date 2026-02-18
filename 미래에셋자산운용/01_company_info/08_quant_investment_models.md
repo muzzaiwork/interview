@@ -69,33 +69,11 @@ graph LR
 
 ---
 
-## 🚀 백테스팅 & 분석 플랫폼 추측 (Future Platform)
+## 🚀 백테스팅 및 분석 플랫폼 아키텍처 (Platform Architecture)
 
-미래에셋자산운용의 Platform Engineering 팀에서 구축하고자 하는 플랫폼은 다음과 같은 모습일 것으로 추측됩니다.
+미래에셋자산운용의 Platform Engineering 팀에서 구축하고자 하는 고성능 플랫폼의 아키텍처 및 핵심 기술에 대한 상세 추측 내용은 아래 별도 문서에서 확인하실 수 있습니다.
 
-### 1. 플랫폼 아키텍처 추측
-```mermaid
-graph TD
-    subgraph "Data Layer"
-        Raw[Raw Data: 시세, 재무, 뉴스] --> Lake[Data Lake: S3/Parquet]
-    end
-    
-    subgraph "Engine Layer (AI + Quant)"
-        Lake --> Pre[전처리/시점 정렬]
-        Pre --> Engine[분산 백테스팅 엔진: Spark/Ray]
-        Engine --> Model[AI 모델 학습 및 검증]
-    end
-    
-    subgraph "Service Layer"
-        Model --> Dashboard[분석 대시보드: 성과 지표 시각화]
-        Model --> API[전략 서빙 API: 실제 주문 연동]
-    end
-```
-
-### 2. 플랫폼의 핵심 기능
-- **고성능 분산 연산**: 수만 개의 전략과 AI 하이퍼파라미터 조합을 Kubernetes 클러스터에서 동시에 시뮬레이션합니다.
-- **시점 정렬 데이터 서빙**: AI 모델이 '미래 데이터'를 미리 학습하는 오류(Data Leakage)를 원천 차단하는 데이터 파이프라인.
-- **통합 분석 도구**: 단순 수익률뿐만 아니라 AI 모델의 판단 근거(XAI, 설명 가능한 AI)를 퀀트 매니저에게 시각적으로 제공합니다.
+*   **[백테스팅 및 분석 플랫폼 아키텍처 상세 보기](./09_platform_architecture_prediction.md)**
 
 ---
 
