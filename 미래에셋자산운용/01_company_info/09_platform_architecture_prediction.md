@@ -183,6 +183,107 @@ df = df.withColumn("MA20", F.avg("close").over(window_spec))
 
 플랫폼 내부에서는 다음과 같은 흐름으로 분산 처리가 일어납니다.
 
+---
+
+## 🏗️ Python + Kubernetes 기반 최적의 퀀트 플랫폼 아키텍처
+
+자산운용사의 플랫폼 엔지니어로서 추천하는 **Python + K8s 기반의 고성능 기술 스택 및 데이터 흐름**입니다. 
+
+### 1. 전용 기술 스택 (The Right Tool for the Job)
+
+| 단계 | 추천 기술 | 선택 이유 |
+| :--- | :--- | :--- |
+| **전체 오케스트레이션** | **Airflow** | 전체 파이프라인(수집→가공→백테스트)의 선후 관계 및 스케줄링 관리 |
+| **데이터 수집 (Ingestion)** | **Celery + K8s** | 수천 개 API 호출의 병렬 처리 및 장애 시 자동 재시도(Retry) 최적화 |
+| **데이터 정제/가공 (ETL)** | **Spark (PySpark)** | 테라바이트급 시계열 데이터의 대규모 행렬 연산 및 셔플링 강점 |
+| **백테스팅 엔진 (Compute)** | **Ray** | **Python에 가장 최적화**된 분산 연산 프레임워크. 시뮬레이션 가속화에 탁월 |
+| **인프라 파운데이션** | **Kubernetes** | 모든 워커(Celery, Spark, Ray)를 컨테이너화하여 자원 격리 및 오토스케일링 |
+
+---
+
+### 2. 전체 데이터 및 연산 도식도 (Architecture Diagram)
+
+```mermaid
+graph TD
+    subgraph "Orchestration Layer"
+        AF[Apache Airflow: 전체 스케줄링/DAG]
+    end
+
+    subgraph "Infrastructure Layer (Kubernetes Cluster)"
+        AF -->|1. 수집 요청| C_Broker[Celery Broker: Redis/RMQ]
+        C_Broker --> C_Worker[Celery Worker Pods: Parallel Ingestion]
+        
+        AF -->|2. 가공 요청| S_Master[Spark Master]
+        S_Master --> S_Worker[Spark Executor Pods: Large-scale Matrix Ops]
+        
+        AF -->|3. 백테스트 요청| R_Head[Ray Head Node]
+        R_Head --> R_Worker[Ray Worker Pods: Strategy Simulation]
+    end
+
+    subgraph "Data & Storage Layer"
+        C_Worker -->|Raw Data| S3[(AWS S3: Data Lake)]
+        S_Worker -->|Refined/PIT| S3
+        R_Worker -->|Read Feature| S3
+        R_Worker -->|Write Result| DB[(PostgreSQL: Metric/Log)]
+    end
+
+    subgraph "Service Layer"
+        DB --> Dash[Grafana/Streamlit Dashboard]
+        R_Worker --> API[FastAPI: Strategy Serving]
+    end
+
+    style AF fill:#f96,stroke:#333
+    style C_Worker fill:#bbf,stroke:#333
+    style S_Worker fill:#bbf,stroke:#333
+    style R_Worker fill:#bbf,stroke:#333
+    style S3 fill:#dfd,stroke:#333
+```
+
+---
+
+### 3. 단계별 코드 및 로직 흐름 (Workflow)
+
+#### [Step 1] 데이터 수집 (Celery + K8s)
+- **흐름**: Airflow가 수집 작업을 던지면, 수백 개의 Celery Worker Pod가 동시에 가동되어 KRX/해외 지수 API를 호출합니다.
+- **코드 컨셉**:
+```python
+@app.task(bind=True, max_retries=3) # 실패 시 3번 재시도
+def fetch_stock_data(self, symbol):
+    data = api.get_price(symbol)
+    save_to_s3(data)
+```
+
+#### [Step 2] 데이터 정제 및 PIT 가공 (Spark on K8s)
+- **흐름**: 수집된 로우 데이터를 읽어 '시점 정렬(PIT)' 마트를 만듭니다. Spark는 수억 건의 데이터를 여러 서버의 메모리에 나눠 올려 팩터를 계산합니다.
+- **코드 컨셉**:
+```python
+# Spark의 분산 연산으로 10년치 PBR 한번에 계산
+df = spark.read.parquet("s3://raw-data/")
+df_refined = df.withColumn("PBR", F.col("price") / F.col("bps"))
+df_refined.write.partitionBy("year").parquet("s3://refined-pit-data/")
+```
+
+#### [Step 3] 백테스팅 엔진 (Ray on K8s)
+- **흐름**: 퀀트 전략은 'Stateful'한 경우가 많아 Spark보다 **Ray**가 유리합니다. Ray는 파이썬 객체를 그대로 공유하며 수만 개의 시뮬레이션을 병렬로 돌립니다.
+- **코드 컨셉**:
+```python
+import ray
+
+@ray.remote # 함수를 분산 작업으로 선언
+def run_backtest(strategy_params, data):
+    engine = BacktestEngine(data)
+    return engine.run(strategy_params)
+
+# K8s 클러스터 전체 자원을 사용하여 수만 개의 파라미터 조합 테스트
+results = ray.get([run_backtest.remote(p, data) for p in param_grid])
+```
+
+---
+
+### 4. 분산 처리 시 작동 흐름 (Master-Worker Architecture)
+
+플랫폼 내부에서는 다음과 같은 흐름으로 분산 처리가 일어납니다.
+
 1.  **Job 제출 (Master)**: 사용자가 "전체 종목 백테스팅" 작업을 제출하면, 마스터 노드가 전체 작업을 작은 단위(Task)로 쪼갭니다.
 2.  **자원 할당 (Scheduler)**: 쿠버네티스나 Spark 스케줄러가 현재 비어있는 워커 노드(Worker Node)들에게 작업을 배분합니다.
 3.  **데이터 분산 (Sharding/Partitioning)**: 전체 데이터를 연도별 또는 종목별로 파티셔닝하여 각 워커가 담당할 데이터만 메모리에 올리게 합니다.
