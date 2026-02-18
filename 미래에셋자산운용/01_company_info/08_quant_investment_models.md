@@ -108,6 +108,28 @@ graph TD
 - **작업**: 외부 벤더(Bloomberg, Reuters) API 및 공공 데이터(KRX, DART) 연동.
 - **핵심**: 데이터 누락 없는 안정적인 수집 (Airflow 등을 활용한 스케줄링).
 
+#### 🛠 Apache Airflow란? (Workflow Orchestrator)
+데이터 파이프라인의 **스케줄링 및 모니터링**을 자동화하는 오픈소스 플랫폼입니다.
+
+1.  **DAG (Directed Acyclic Graph)**: 데이터가 흐르는 순서(A 작업 후 B 작업 실행)를 '방향이 있고 순환하지 않는 그래프' 형태로 정의합니다.
+2.  **스케줄링**: "매일 새벽 2시(KRX 장 종료 후)에 재무제표 데이터를 수집하라"는 식의 복잡한 실행 조건을 관리합니다.
+3.  **장애 복구 (Retry)**: 네트워크 오류 등으로 수집이 실패했을 때, 자동으로 다시 시도하거나 담당자에게 알림을 보냅니다.
+4.  **Backfill (과거 데이터 채우기)**: 특정 시점의 데이터가 누락되었을 때, 과거 날짜를 지정하여 파이프라인을 재실행하는 기능이 강력합니다.
+
+```mermaid
+graph LR
+    Start[매일 AM 02:00] --> Task1[KRX 시세 수집]
+    Task1 -->|성공| Task2[재무제표 수집]
+    Task1 -->|실패| Retry[5분 후 재시도]
+    Task2 --> Task3[데이터 정제 및 DB 적재]
+    Task3 --> End[수집 완료 알림]
+    
+    style Task1 fill:#e1f5fe
+    style Task2 fill:#e1f5fe
+    style Task3 fill:#e1f5fe
+    style Retry fill:#ffebee
+```
+
 ### Step 2. 데이터 정제 및 가공 (ETL & PIT)
 - **작업**: 결측치 처리(전일 종가 대체 등), **수정주가 계산**(액면분할 등 반영), **시점 정렬(Point-in-Time)**.
 - **핵심**: AI 모델이 과거 학습 시 미래 데이터를 참조하는 오류(Look-ahead bias)를 물리적으로 차단하도록 데이터 마트를 설계.
