@@ -141,3 +141,4 @@ print(f"전략 최종 누적 수익률: {cum_rtn_series.iloc[-1]:.3f}")
 | **Pandas** | `Series/DataFrame` | `rank()` | 데이터의 순위를 매김 |
 | **Pandas** | `Series/DataFrame` | `replace()` | 특정 값을 다른 값으로 변경 |
 | **Pandas** | `Index` | `get_level_values()` | 멀티인덱스의 특정 레벨 값을 추출 |
+| **Apache** | `Parquet` | `-` | 대규모 데이터 처리를 위한 컬럼 기반 저장 형식 (S3 최적화) |
