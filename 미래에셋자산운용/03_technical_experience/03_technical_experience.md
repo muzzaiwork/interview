@@ -33,6 +33,25 @@
     - **안정성**: 특정 지급 실패 시 자동 재시도(Retry) 로직 적용으로 시스템 복원력 확보.
     - **운영 효율**: 사용자는 지급 요청 후 즉시 응답을 받고, 실제 지급은 백그라운드에서 안정적으로 수행되는 논블로킹(Non-blocking) 경험 제공.
 
+#### 📊 지급 시스템 개선 아키텍처 (Celery 도입)
+```mermaid
+graph TD
+    User[지급 요청] --> Client[API 서버]
+    Client -->|1. 작업 던지기| Broker[Message Broker: Redis/RMQ]
+    Client -->|2. 즉시 응답| User
+    
+    Broker -->|3. 분배| W1[Worker A]
+    Broker -->|3. 분배| W2[Worker B]
+    Broker -->|3. 분배| W3[Worker C]
+    
+    W1 --> Result[(DB: 성공 로그)]
+    W2 --> Retry[재시도: 실패 시 격리]
+    W3 --> Result
+    
+    style W2 fill:#e1f5fe,stroke:#01579b
+    style Retry fill:#fff3e0,stroke:#ffb300
+```
+
 ### 4. In-Car Payment 시스템 및 인프라 개선 (블루월넛)
 - **상황(Situation)**: 차량 내 결제 시스템 개발 및 수동적인 배포 프로세스 개선 필요.
 - **과제(Task)**: 스타벅스 주문/결제 시스템 개발 및 사내 로그 시스템 통합.
