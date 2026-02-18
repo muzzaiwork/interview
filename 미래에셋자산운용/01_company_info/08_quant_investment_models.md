@@ -87,6 +87,18 @@ graph LR
 - **핵심**: 데이터 누락 없는 안정적인 수집.
     - **Airflow 활용**: 데이터 파이프라인의 스케줄링, 모니터링, 장애 복구(Retry)를 자동화하는 오픈소스 플랫폼입니다. (DAG 구조 활용)
 
+#### 🛠 Apache Airflow vs Kubernetes Scheduler
+많은 분들이 혼동하기 쉬운 **워크플로우 오케스트레이터(Airflow)**와 **리소스 스케줄러(K8s)**의 차이점입니다.
+
+| 비교 항목 | Apache Airflow (Workflow Orchestrator) | Kubernetes Scheduler (Resource Scheduler) |
+| :--- | :--- | :--- |
+| **관점** | **애플리케이션/데이터 로직** 관점 | **인프라/리소스** 관점 |
+| **핵심 역할** | 작업 간의 **의존성(Dependency)** 관리 (A 다음 B) | Pod를 최적의 **노드(Node)**에 배치 (비어있는 배에 짐 싣기) |
+| **주요 기능** | 실패 시 재시도(Retry), 알림, 과거 데이터 소급(Backfill) | 자원 가용량 확인, 우선순위 할당, 자가 치유(Self-healing) |
+| **비유** | 공장의 **공정 설계자** (순서와 절차 결정) | 공장의 **지입차 배차 요원** (빈 차에 짐 싣기) |
+
+**💡 시너지**: 플랫폼 엔지니어링에서는 Airflow의 각 작업을 **KubernetesExecutor**를 통해 개별 K8s Pod로 띄워 실행합니다. 즉, **"Airflow가 순서를 결정하면, K8s 스케줄러가 그 작업을 수행할 빈 서버를 찾아주는"** 협업 구조입니다.
+
 #### 🛠 Apache Airflow란? (Workflow Orchestrator)
 데이터 파이프라인의 **스케줄링 및 모니터링**을 자동화하는 오픈소스 플랫폼입니다.
 
