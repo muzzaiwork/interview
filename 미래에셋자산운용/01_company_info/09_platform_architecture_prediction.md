@@ -112,6 +112,82 @@ graph TD
 
 ---
 
+## ⛓️ 분산 처리의 필요성과 작동 흐름 (Distributed Processing)
+
+퀀트 AI 플랫폼에서는 데이터의 양이 기하급수적으로 늘어나기 때문에 **데이터 수집, 가공, 연산** 전 과정에서 분산 처리가 필수적입니다.
+
+### 1. 단계별 분산 처리의 필요성
+
+| 단계 | 분산 처리가 필요한 이유 | 핵심 기술 |
+| :--- | :--- | :--- |
+| **데이터 수집** | 수천 개의 종목 시세를 각각 API로 호출할 때, 순차적(Sequential) 처리는 너무 느림. | `Multi-threading`, `Async IO` |
+| **데이터 가공** | 10년 치 전체 종목의 수정주가 계산, 팩터 산출 등 대규모 행렬 연산 시 단일 CPU 메모리 한계. | `Spark`, `Dask`, `Pandas Vectorization` |
+| **전략 연산** | 수만 개의 변수 조합(Grid Search)을 테스트하는 백테스팅은 독립적인 연산이므로 병렬화 효과 극대화. | `Ray`, `Kubernetes Job`, `Celery` |
+
+---
+
+### 2. 코드로 보는 분산 처리 예시 (Python)
+
+#### ❌ 순차 처리 (Sequential) - 매우 느림
+```python
+# 하나씩 순서대로 수집 (1000개 종목 수집 시 1000초 소요 가정)
+results = []
+for symbol in symbols:
+    data = fetch_api(symbol) 
+    results.append(data)
+```
+
+#### ✅ 분산/병렬 처리 (Parallel/Distributed) - 압도적 속도
+```python
+# 1. 데이터 수집: 멀티 프로세싱 활용 (CPU 코어만큼 병렬 처리)
+from multiprocessing import Pool
+
+with Pool(processes=8) as pool:
+    results = pool.map(fetch_api, symbols)
+
+# 2. 대규모 연산: PySpark 활용 (여러 대의 서버에 작업 분산)
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("QuantAnalysis").getOrCreate()
+df = spark.read.parquet("s3://quant-data/raw_prices/")
+
+# 분산 환경에서 그룹화 및 이동평균 계산
+from pyspark.sql.window import Window
+import pyspark.sql.functions as F
+
+window_spec = Window.partitionBy("symbol").orderBy("date")
+df = df.withColumn("MA20", F.avg("close").over(window_spec))
+```
+
+---
+
+### 3. 분산 처리 시 작동 흐름 (Master-Worker Architecture)
+
+플랫폼 내부에서는 다음과 같은 흐름으로 분산 처리가 일어납니다.
+
+1.  **Job 제출 (Master)**: 사용자가 "전체 종목 백테스팅" 작업을 제출하면, 마스터 노드가 전체 작업을 작은 단위(Task)로 쪼갭니다.
+2.  **자원 할당 (Scheduler)**: 쿠버네티스나 Spark 스케줄러가 현재 비어있는 워커 노드(Worker Node)들에게 작업을 배분합니다.
+3.  **데이터 분산 (Sharding/Partitioning)**: 전체 데이터를 연도별 또는 종목별로 파티셔닝하여 각 워커가 담당할 데이터만 메모리에 올리게 합니다.
+4.  **병렬 실행 (Execution)**: 각 워커는 독립적으로 자신의 데이터를 처리(계산)합니다.
+5.  **결과 취합 (Reduce/Aggregate)**: 모든 워커의 연산이 끝나면 마스터 노드가 결과물을 다시 하나로 합쳐 사용자에게 최종 리포트를 전달합니다.
+
+```mermaid
+graph TD
+    User[전략 제출] --> Master[Master Node: 작업 분할]
+    Master -->|Task 1| W1[Worker A: 2000~2005년 연산]
+    Master -->|Task 2| W2[Worker B: 2006~2010년 연산]
+    Master -->|Task 3| W3[Worker C: 2011~2015년 연산]
+    
+    W1 --> Storage[(S3: Parquet)]
+    W2 --> Storage
+    W3 --> Storage
+    
+    W1 & W2 & W3 --> Agg[Result Aggregator]
+    Agg --> Final[최종 수익률 리포트]
+```
+
+---
+
 ## 🎯 플랫폼의 핵심 가치 (Core Value)
 
 1.  **데이터 무결성 (Data Integrity)**: 엄격한 정제와 PIT 정렬을 통해 전략의 신뢰도를 보장합니다.
