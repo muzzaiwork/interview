@@ -306,7 +306,47 @@ results = ray.get([run_backtest.remote(p, data) for p in param_grid])
 
 ---
 
-### 4. 분산 처리 시 작동 흐름 (Master-Worker Architecture)
+### 4. 행렬 연산의 분산 처리 원리 (Matrix Parallelization)
+
+"여러 대의 컴퓨터에서 행렬 연산을 나눠서 한다"는 개념은 거대한 벽돌 벽을 여러 명의 인부가 나누어 쌓는 것과 비슷합니다. Ray와 Dask는 이 과정을 다음과 같이 처리합니다.
+
+#### ① 덩어리 나누기 (Chunking / Sharding)
+*   **개념**: 10,000행 × 10,000열의 거대한 행렬을 한 대의 메모리에 올릴 수 없으므로, 이를 작은 타일(Chunk) 조각으로 쪼갭니다.
+*   **비유**: 거대한 퍼즐판을 100조각으로 나누어 100명의 사람에게 한 조각씩 나누어 주는 것입니다.
+
+#### ② 작업 그래프 생성 (Task Graph)
+*   **개념**: "A 서버는 1번 조각을, B 서버는 2번 조각을 계산해라"라는 명령서(DAG)를 만듭니다. 
+*   **Ray/Dask의 역할**: 어떤 서버가 놀고 있는지(Resource), 어떤 서버에 데이터 조각이 이미 있는지(Data Locality)를 판단하여 최적의 서버에 계산 명령을 내립니다.
+
+#### ③ 분산 공유 메모리 (Object Store - Ray의 핵심)
+*   **문제**: A 서버의 결과물과 B 서버의 결과물을 합쳐야 할 때, 데이터를 네트워크로 주고받으면 너무 느립니다.
+*   **해결**: Ray는 **Plasma**라는 공유 메모리 시스템을 사용하여, 마치 한 대의 컴퓨터인 것처럼 다른 서버의 메모리에 있는 데이터를 직접 참조하거나 아주 빠르게 복사합니다.
+
+```mermaid
+graph TD
+    subgraph "Master (Scheduler)"
+        M[거대 행렬] --> S{쪼개기}
+        S --> T1[Task 1]
+        S --> T2[Task 2]
+        S --> T3[Task 3]
+    end
+
+    subgraph "Worker Node 1"
+        T1 --> C1[행렬 조각 A 계산]
+    end
+    subgraph "Worker Node 2"
+        T2 --> C2[행렬 조각 B 계산]
+    end
+    subgraph "Worker Node 3"
+        T3 --> C3[행렬 조각 C 계산]
+    end
+
+    C1 & C2 & C3 --> OS[Shared Object Store: 결과 합치기]
+```
+
+---
+
+### 5. 분산 처리 시 작동 흐름 (Master-Worker Architecture)
 
 플랫폼 내부에서는 다음과 같은 흐름으로 분산 처리가 일어납니다.
 
