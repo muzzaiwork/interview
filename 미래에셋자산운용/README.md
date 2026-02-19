@@ -17,7 +17,8 @@
 2. **[미래에셋자산운용 기업 분석 (TIGER ETF 등)](./01_company_info/01_company_info.md)**
 3. **[핵심 금융 용어 정리 (PBR, AUM 등)](./01_company_info/07_financial_terminology.md)**
 4. **[대표적인 퀀트 투자 모델 (팩터/차익거래/리스크 패리티)](./01_company_info/08_quant_investment_models.md)**
-5. **[플랫폼 아키텍처 및 분산 처리 전략 (K8s/Spark/Ray)](./01_company_info/09_platform_architecture_prediction.md)**
+5. **[퀀트 투자 6단계 프로세스 및 롱/숏 개념](./01_company_info/10_quant_investment_process.md)**
+6. **[플랫폼 아키텍처 및 분산 처리 전략 (K8s/Spark/Ray)](./01_company_info/09_platform_architecture_prediction.md)**
 
 ### [Phase 2. 자기소개 및 역량 증명 (Self & Experience)](./02_self_introduction/02_self_introduction.md)
 1. **[자기소개 및 지원/이직 사유](./02_self_introduction/02_self_introduction.md)**
@@ -36,11 +37,13 @@
 4. **[데이터 저장 및 전달 전략 (Storage Strategy)](./06_technical_agenda/09_storage_strategy_detail.md)**
 5. **[인프라 기술: AWS S3 이해 및 활용](./06_technical_agenda/10_aws_s3_detail.md)**
 6. **[쿠버네티스(Kubernetes) 상세 활용 시나리오](./06_technical_agenda/11_kubernetes_deep_dive.md)**
+7. **[데이터 서빙 및 피처 스토어 (Feature Store)](./06_technical_agenda/12_data_serving_and_feature_store.md)**
 
 ### [Phase 5. 실전 프로젝트 분석 (Practical Project Case Study)](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)
 1. **[소형주 저PBR 퀀트 백엔드 모듈 상세 가이드](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)**
 2. **[데이터 무결성 및 시점 정렬(PIT) 구현 로직](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)**
 3. **[성과 지표(CAGR/MDD) 산출 및 벡터화 연산](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)**
+4. **[직관적 이해를 위한 절차지향 코드 분석](./sample_project/소형주_저PBR_퀀트_절차지향.py)**
 
 ### [Phase 6. 최종 리허설 (Final Rehearsal)](./04_expected_questions/04_expected_questions.md)
 1. **[예상 질문 및 답변 가이드 (인성/기술)](./04_expected_questions/04_expected_questions.md)**
