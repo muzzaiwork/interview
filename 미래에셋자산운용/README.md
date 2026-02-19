@@ -39,6 +39,7 @@
 5. **[인프라 기술: AWS S3 이해 및 활용](./06_technical_agenda/10_aws_s3_detail.md)**
 6. **[쿠버네티스(Kubernetes) 상세 활용 시나리오](./06_technical_agenda/11_kubernetes_deep_dive.md)**
 7. **[데이터 서빙 및 피처 스토어 (Feature Store)](./06_technical_agenda/12_data_serving_and_feature_store.md)**
+8. **[암호화 핵심 개념 (대칭/비대칭/키 관리)](./06_technical_agenda/13_cryptography_essentials.md)**
 
 ### [Phase 5. 실전 프로젝트 분석 (Practical Project Case Study)](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)
 1. **[소형주 저PBR 퀀트 백엔드 모듈 상세 가이드](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)**
