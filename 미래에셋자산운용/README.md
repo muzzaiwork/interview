@@ -27,8 +27,9 @@
 
 ### [Phase 3. 설계 역량 및 기술 스택 (Design & Tech Stack)](./03_technical_experience/07_design_pattern_application.md)
 1. **[디자인 패턴 사례 (Strategy/Factory)](./03_technical_experience/07_design_pattern_application.md)**
-2. **[객체지향 설계 (Mixin vs ABC)](./03_technical_experience/08_mixin_concept_detail.md)**
-3. **[핵심 기술 상세: Apache Airflow](./06_technical_agenda/04_technical_stack_detail.md)**
+2. **[전략 & 팩토리 패턴 상세 설명](./03_technical_experience/10_strategy_and_factory_patterns.md)**
+3. **[객체지향 설계 (Mixin vs ABC)](./03_technical_experience/08_mixin_concept_detail.md)**
+4. **[핵심 기술 상세: Apache Airflow](./06_technical_agenda/04_technical_stack_detail.md)**
 
 ### [Phase 4. 기술적 업무 상세 (Technical Agenda Deep-Dive)](./06_technical_agenda/02_job_and_architecture_overview.md)
 1. **[직무의 큰 그림 및 통합 아키텍처 개요](./06_technical_agenda/02_job_and_architecture_overview.md)**
