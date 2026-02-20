@@ -23,7 +23,7 @@
 ### [Phase 2. 자기소개 및 역량 증명 (Self & Experience)](./02_self_introduction/02_self_introduction.md)
 1. **[자기소개 및 지원/이직 사유 (정리본)](./02_self_introduction/02_self_introduction.md)**
 2. **[제출 자기소개서 원본](./02_self_introduction/02_self_introduction_raw.md)**
-3. **[경력 기술서 상세 원본](./03_technical_experience/03_career_history_raw.md)**
+3. **[경력 기술서 상세 원본](./02_self_introduction/03_career_history_raw.md)**
 4. **[핵심 역량 및 주요 프로젝트 성과](./03_technical_experience/03_technical_experience.md)**
 5. **[경력 기반 직무 강점 분석 (Career Alignment)](./03_technical_experience/09_career_alignment_and_value.md)**
 
