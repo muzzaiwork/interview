@@ -44,6 +44,7 @@
 7. **[데이터 서빙 및 피처 스토어 (Feature Store)](./06_technical_agenda/12_data_serving_and_feature_store.md)**
 8. **[암호화 핵심 개념 (대칭/비대칭/키 관리)](./06_technical_agenda/13_cryptography_essentials.md)**
 9. **[핵심 기술 스택 요약 (LLM/Docker/K8s/Kafka/Redis)](./06_technical_agenda/14_technical_stack_essentials.md)**
+10. **[Snowflake 심층 분석 (클라우드 데이터 웨어하우스)](./06_technical_agenda/15_snowflake_deep_dive.md)**
 
 ### [Phase 5. 실전 프로젝트 분석 (Practical Project Case Study)](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)
 1. **[소형주 저PBR 퀀트 백엔드 모듈 상세 가이드](./sample_project/소형주_저PBR_퀀트_백엔드_모듈_설명.md)**
