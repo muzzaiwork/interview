@@ -19,6 +19,7 @@
 4. **[대표적인 퀀트 투자 모델 (팩터/차익거래/리스크 패리티)](./01_company_info/08_quant_investment_models.md)**
 5. **[퀀트 투자 6단계 프로세스 및 롱/숏 개념](./01_company_info/10_quant_investment_process.md)**
 6. **[플랫폼 아키텍처 및 분산 처리 전략 (K8s/Spark/Ray)](./01_company_info/09_platform_architecture_prediction.md)**
+7. **[기사 분석: AI 글로벌 플랫폼 도약 전략](./01_company_info/11_ai_platform_strategy_article.md)**
 
 ### [Phase 2. 자기소개 및 역량 증명 (Self & Experience)](./02_self_introduction/02_self_introduction.md)
 1. **[자기소개 및 지원/이직 사유 (정리본)](./02_self_introduction/02_self_introduction.md)**
