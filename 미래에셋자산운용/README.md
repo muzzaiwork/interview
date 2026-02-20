@@ -21,9 +21,10 @@
 6. **[플랫폼 아키텍처 및 분산 처리 전략 (K8s/Spark/Ray)](./01_company_info/09_platform_architecture_prediction.md)**
 
 ### [Phase 2. 자기소개 및 역량 증명 (Self & Experience)](./02_self_introduction/02_self_introduction.md)
-1. **[자기소개 및 지원/이직 사유](./02_self_introduction/02_self_introduction.md)**
-2. **[핵심 역량 및 주요 프로젝트 성과](./03_technical_experience/03_technical_experience.md)**
-3. **[경력 기반 직무 강점 분석 (Career Alignment)](./03_technical_experience/09_career_alignment_and_value.md)**
+1. **[자기소개 및 지원/이직 사유 (정리본)](./02_self_introduction/02_self_introduction.md)**
+2. **[제출 자기소개서 원본](./02_self_introduction/02_self_introduction_raw.md)**
+3. **[핵심 역량 및 주요 프로젝트 성과](./03_technical_experience/03_technical_experience.md)**
+4. **[경력 기반 직무 강점 분석 (Career Alignment)](./03_technical_experience/09_career_alignment_and_value.md)**
 
 ### [Phase 3. 설계 역량 및 기술 스택 (Design & Tech Stack)](./03_technical_experience/07_design_pattern_application.md)
 1. **[디자인 패턴 사례 (Strategy/Factory)](./03_technical_experience/07_design_pattern_application.md)**
